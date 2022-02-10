@@ -4,43 +4,42 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.zhangzc</groupId>
-        <artifactId>zhangzc_cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <artifactId>cloud-upms</artifactId>
     </parent>
-    <artifactId>cloud-auth</artifactId>
+    <groupId>com.zhangzc</groupId>
+    <artifactId>cloud-upms-biz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>cloud-auth</name>
+    <name>cloud-upms-biz</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>jar</packaging>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--freemarker-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
-        </dependency>
-        <!--安全模块-->
+        <!-- 安全模块 -->
         <dependency>
             <groupId>com.zhangzc</groupId>
             <artifactId>cloud-common-security</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- 数据库 -->
+        <!--mybatis-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <!--数据库-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <groupId>com.zhangzc</groupId>
+            <artifactId>cloud-upms-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <build>

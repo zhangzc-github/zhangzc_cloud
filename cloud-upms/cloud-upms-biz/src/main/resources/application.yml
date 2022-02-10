@@ -1,0 +1,19 @@
+server:
+  port: 9000
+
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://127.0.0.1:3000/oauth/check_token
+    client:
+      client-id: app
+      client-secret: app
+      scope: server
+# 数据源
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/pig?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai

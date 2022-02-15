@@ -12,15 +12,26 @@
     <artifactId>cloud-upms-api</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.zhangzc</groupId>
+            <artifactId>cloud-common-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!--mybatis-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <!--openfeign-->
         <dependency>
-            <groupId>com.zhangzc</groupId>
-            <artifactId>cloud-common-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- LB 扩展 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
     </dependencies>
 

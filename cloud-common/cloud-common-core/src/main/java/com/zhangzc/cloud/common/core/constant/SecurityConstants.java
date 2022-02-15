@@ -1,6 +1,14 @@
-package com.zhangzc.cloud.auth.constant;
+package com.zhangzc.cloud.common.core.constant;
 
 public interface SecurityConstants {
+    /**
+     * 角色前缀
+     */
+    String ROLE = "ROLE_";
+    /**
+     * {bcrypt} 加密的特征码
+     */
+    String BCRYPT = "{bcrypt}";
     /**
      * sys_oauth_client_details 表的字段，不包括client_id、client_secret
      */

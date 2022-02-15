@@ -3,7 +3,10 @@ package com.zhangzc.cloud.upms.api.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -13,7 +16,8 @@ import javax.validation.constraints.NotBlank;
  * @date 2022/2/10 3:45 下午
  */
 @Data
-public class SysRole {
+@EqualsAndHashCode(callSuper = true)
+public class SysRole extends Model<SysRole> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,3 +40,5 @@ public class SysRole {
 	private String delFlag;
 
 }
+
+

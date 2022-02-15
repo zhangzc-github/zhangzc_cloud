@@ -1,0 +1,18 @@
+package com.zhangzc.cloud.upms.api.feign;
+
+import com.zhangzc.cloud.common.core.utils.R;
+import com.zhangzc.cloud.upms.api.dto.UserInfo;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(contextId = "remoteUserService", value = "cloud-upms-biz")
+public interface RemoteUserService {
+    /**
+     * 通过用户名查询用户信息、角色信息
+     * @param username username
+     * @return R<UserInfo>
+     */
+    @GetMapping("/user/info/{username}")
+    R<UserInfo> userInfo(@PathVariable String username);
+}

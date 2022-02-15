@@ -12,6 +12,11 @@
     <artifactId>cloud-common-security</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.zhangzc</groupId>
+            <artifactId>cloud-upms-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!--安全模块-->
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>

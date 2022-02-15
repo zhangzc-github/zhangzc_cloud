@@ -3,8 +3,10 @@ package com.zhangzc.cloud.upms.api.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import net.minidev.json.annotate.JsonIgnore;
+import lombok.EqualsAndHashCode;
 
 /**
  * 用户表
@@ -13,7 +15,8 @@ import net.minidev.json.annotate.JsonIgnore;
  * @date 2022/2/10 1:04 下午
  */
 @Data
-public class SysUser {
+@EqualsAndHashCode(callSuper = true)
+public class SysUser extends Model<SysUser> {
 
 	private static final long serialVersionUID = 1L;
 

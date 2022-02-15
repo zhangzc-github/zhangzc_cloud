@@ -1,6 +1,6 @@
 package com.zhangzc.cloud.auth.config;
 
-import com.zhangzc.cloud.auth.constant.SecurityConstants;
+import com.zhangzc.cloud.common.core.constant.SecurityConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +11,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+
 import javax.sql.DataSource;
 
+/**
+ * 认证服务器配置
+ * @version 1.0
+ * @author Zhichao Zhang
+ * @date 2022/2/14 12:31 下午
+ */
 @Configuration
 @EnableAuthorizationServer
 @RequiredArgsConstructor

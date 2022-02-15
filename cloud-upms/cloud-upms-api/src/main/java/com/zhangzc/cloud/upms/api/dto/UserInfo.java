@@ -1,4 +1,4 @@
-package com.zhangzc.cloud.umps.api.dto;
+package com.zhangzc.cloud.upms.api.dto;
 
 import com.zhangzc.cloud.upms.api.entity.SysRole;
 import com.zhangzc.cloud.upms.api.entity.SysUser;

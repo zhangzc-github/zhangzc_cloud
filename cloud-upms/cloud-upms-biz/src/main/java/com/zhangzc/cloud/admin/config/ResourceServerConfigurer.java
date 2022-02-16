@@ -1,7 +1,11 @@
 package com.zhangzc.cloud.admin.config;
 
+import com.zhangzc.cloud.common.security.component.PermitAllUrlProperties;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 /**
@@ -11,11 +15,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  * @date 2022/2/14 12:33 下午
  */
 @Configuration
+@RequiredArgsConstructor
+@EnableConfigurationProperties(PermitAllUrlProperties.class)
 public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
+    private final PermitAllUrlProperties permitAllUrlProperties;
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests().antMatchers("/user/info/**").permitAll().anyRequest().authenticated()
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.authorizeRequests();
+        permitAllUrlProperties.getUrls().stream().forEach(url -> registry.antMatchers(url).permitAll());
+        registry.anyRequest().authenticated()
                 .and()
                 .csrf().disable();
     }

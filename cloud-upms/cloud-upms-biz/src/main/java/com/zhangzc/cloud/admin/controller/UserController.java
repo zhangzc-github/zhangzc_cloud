@@ -3,6 +3,7 @@ package com.zhangzc.cloud.admin.controller;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhangzc.cloud.admin.service.SysUserService;
 import com.zhangzc.cloud.common.core.utils.R;
+import com.zhangzc.cloud.common.security.annotation.Inner;
 import com.zhangzc.cloud.upms.api.dto.UserInfo;
 import com.zhangzc.cloud.upms.api.entity.SysUser;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class UserController {
      * @param username 用户名
      * @return 用户信息
      */
+    @Inner
     @GetMapping("/info/{username}")
     public R<UserInfo> userInfo(@PathVariable String username){
         SysUser sysUser = sysUserService.getOne(Wrappers.<SysUser>query().lambda().eq(SysUser::getUsername, username));

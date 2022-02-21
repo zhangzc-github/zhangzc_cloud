@@ -1,8 +1,10 @@
 package com.zhangzc.cloud.admin.config;
 
+import com.zhangzc.cloud.common.security.component.PermissionService;
 import com.zhangzc.cloud.common.security.component.PermitAllUrlProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -26,5 +28,10 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
         registry.anyRequest().authenticated()
                 .and()
                 .csrf().disable();
+    }
+
+    @Bean("pms")
+    public PermissionService permissionService() {
+        return new PermissionService();
     }
 }

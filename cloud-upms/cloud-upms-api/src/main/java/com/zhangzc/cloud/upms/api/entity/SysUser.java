@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zhangzc.cloud.common.mybatis.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,7 +17,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysUser extends Model<SysUser> {
+public class SysUser extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 

@@ -24,4 +24,9 @@ public interface CommonConstants {
      * 失败标记
      */
     Integer FAIL = 1;
+
+    /**
+     * 菜单树根节点
+     */
+    Long MENU_TREE_ROOT_ID = -1L;
 }

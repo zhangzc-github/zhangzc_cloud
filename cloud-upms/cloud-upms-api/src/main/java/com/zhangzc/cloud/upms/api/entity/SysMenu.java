@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.zhangzc.cloud.common.mybatis.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysMenu extends Model<SysMenu> {
+public class SysMenu extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**

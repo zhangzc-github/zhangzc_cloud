@@ -4,7 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.zhangzc.cloud.common.core.constant.CommonConstants;
 import com.zhangzc.cloud.common.core.constant.SecurityConstants;
-import com.zhangzc.cloud.common.core.utils.R;
+import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.upms.api.dto.UserInfo;
 import com.zhangzc.cloud.upms.api.entity.SysUser;
 import com.zhangzc.cloud.upms.api.feign.RemoteUserService;

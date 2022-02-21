@@ -1,4 +1,4 @@
-package com.zhangzc.cloud.common.core.utils;
+package com.zhangzc.cloud.common.core.util;
 
 import com.zhangzc.cloud.common.core.constant.CommonConstants;
 import lombok.*;

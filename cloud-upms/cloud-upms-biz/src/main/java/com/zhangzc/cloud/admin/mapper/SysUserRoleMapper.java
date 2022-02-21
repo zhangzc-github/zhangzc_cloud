@@ -1,8 +1,10 @@
 package com.zhangzc.cloud.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zhangzc.cloud.upms.api.entity.SysRole;
+import com.zhangzc.cloud.upms.api.entity.SysUserRole;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -12,11 +14,11 @@ import java.util.List;
  * @date 2022/2/12 3:34 下午
  */
 @Mapper
-public interface SysUserRoleMapper extends BaseMapper<SysUserRoleMapper> {
+public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
     /**
-     * 通过user id查询用户角色信息
+     * 根据用户Id删除该用户的角色关系
      * @param userId user id
-     * @return 用户角色信息
+     * @return boolean
      */
-    List<SysRole> listRolesByUserId(Long userId);
+    Boolean deleteByUserId(@Param("userId") Long userId);
 }

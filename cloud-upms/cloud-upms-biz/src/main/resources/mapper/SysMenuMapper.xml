@@ -14,6 +14,10 @@
         <result column="sort_order" property="sortOrder"/>
         <result column="type" property="type"/>
         <result column="keep_alive" property="keepAlive"/>
+		<result column="create_by" property="createBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_by" property="updateBy"/>
+		<result column="update_time" property="updateTime"/>
         <result column="del_flag" property="delFlag"/>
     </resultMap>
 
@@ -28,7 +32,11 @@
 			   sys_menu.sort_order,
 			   sys_menu.keep_alive,
 			   sys_menu.type,
-			   sys_menu.del_flag
+			   sys_menu.del_flag,
+			   sys_menu.create_by,
+			   sys_menu.create_time,
+			   sys_menu.update_by,
+			   sys_menu.update_time
 		FROM sys_menu
 					 LEFT JOIN sys_role_menu ON sys_menu.menu_id = sys_role_menu.menu_id
 		WHERE sys_menu.del_flag = 0

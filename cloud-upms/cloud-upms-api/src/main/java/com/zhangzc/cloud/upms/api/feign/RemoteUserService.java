@@ -1,6 +1,6 @@
 package com.zhangzc.cloud.upms.api.feign;
 
-import com.zhangzc.cloud.common.core.utils.R;
+import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.upms.api.dto.UserInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

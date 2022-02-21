@@ -7,39 +7,45 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.zhangzc.cloud.common.mybatis.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
- * 角色表
+ * 部门管理
  * @version 1.0
  * @author Zhichao Zhang
- * @date 2022/2/10 3:45 下午
+ * @date 2022/2/21 11:00 上午
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysRole extends BaseEntity {
+public class SysDept extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@TableId(value = "role_id", type = IdType.ASSIGN_ID)
-	private Long roleId;
-
-	@NotBlank(message = "角色名称 不能为空")
-	private String roleName;
-
-	@NotBlank(message = "角色标识 不能为空")
-	private String roleCode;
-
-	@NotBlank(message = "角色描述 不能为空")
-	private String roleDesc;
+	@TableId(value = "dept_id", type = IdType.ASSIGN_ID)
+	private Long deptId;
 
 	/**
-	 * 删除标识（0-正常,1-删除）
+	 * 部门名称
+	 */
+	@NotBlank(message = "部门名称不能为空")
+	private String name;
+
+	/**
+	 * 排序
+	 */
+	@NotNull(message = "部门排序值不能为空")
+	private Integer sortOrder;
+
+	/**
+	 * 父级部门id
+	 */
+	private Long parentId;
+
+	/**
+	 * 是否删除 -1：已删除 0：正常
 	 */
 	@TableLogic
 	private String delFlag;
 
 }
-
-

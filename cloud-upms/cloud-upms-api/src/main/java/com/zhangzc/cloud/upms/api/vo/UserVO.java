@@ -6,6 +6,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * TODO
+ * @version 1.0
+ * @author Zhichao Zhang
+ * @date 2022/2/22 10:15 上午
+ */
 @Data
 public class UserVO implements Serializable {
 

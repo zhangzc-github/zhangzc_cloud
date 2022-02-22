@@ -30,4 +30,24 @@ public interface SecurityConstants {
      * 按条件client_id 查询
      */
     String DEFAULT_SELECT_STATEMENT = BASE_FIND_STATEMENT + " where client_id = ?";
+
+    /**
+     * 默认登录URL
+     */
+    String OAUTH_TOKEN_URL = "/oauth/token";
+
+    /**
+     * grant_type
+     */
+    String REFRESH_TOKEN = "refresh_token";
+
+    /**
+     * 标志
+     */
+    String FROM = "from";
+
+    /**
+     * 验证码有效期,默认 60秒
+     */
+    long CODE_TIME = 60;
 }

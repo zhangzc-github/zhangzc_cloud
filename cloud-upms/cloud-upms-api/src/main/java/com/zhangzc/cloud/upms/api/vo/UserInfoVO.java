@@ -4,6 +4,12 @@ import com.zhangzc.cloud.upms.api.entity.SysUser;
 import lombok.Data;
 import java.io.Serializable;
 
+/**
+ * TODO
+ * @version 1.0
+ * @author Zhichao Zhang
+ * @date 2022/2/22 10:15 上午
+ */
 @Data
 public class UserInfoVO implements Serializable {
 

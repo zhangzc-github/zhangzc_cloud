@@ -11,8 +11,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 认证服务器配置
@@ -26,6 +30,7 @@ import javax.sql.DataSource;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
+    private final TokenStore redisTokenStore;
 
     @Override
     @SneakyThrows
@@ -43,7 +48,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.authenticationManager(authenticationManager);
+        endpoints.authenticationManager(authenticationManager).tokenStore(redisTokenStore);
     }
+
+//    public TokenEnhancer tokenEnhancer() {
+//        return (accessToken, authentication) -> {
+//            Map<String, Object> additionalInfo = new HashMap<>(4);
+//            additionalInfo.put()
+//        }
+//    }
 
 }

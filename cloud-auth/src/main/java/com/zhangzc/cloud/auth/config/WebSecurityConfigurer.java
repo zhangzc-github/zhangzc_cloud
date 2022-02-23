@@ -34,6 +34,10 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
+    /**
+     * 认证中心静态资源处理
+     * @param web WebSecurity
+     */
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/css/**");
@@ -46,6 +50,10 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * 密码处理器
+     * @return 动态密码处理器 {类型}密文
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

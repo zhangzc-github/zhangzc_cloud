@@ -18,7 +18,7 @@ spring:
       routes:
         # 认证中心
         - id: cloud-auth
-          uri: lb://pig-auth
+          uri: lb://cloud-auth
           predicates:
             - Path=/auth/**
           filters:
@@ -28,7 +28,7 @@ spring:
             - PasswordDecoderFilter
         #UPMS 模块
         - id: cloud-upms-biz
-          uri: lb://pig-upms-biz
+          uri: lb://cloud-upms-biz
           predicates:
             - Path=/admin/**
           filters:
@@ -41,3 +41,10 @@ spring:
 
   profiles:
     active: @profiles.active@
+  redis:
+    password: 123456
+
+gateway:
+  encode-key: 'thanks,pig4cloud'
+  ignore-clients:
+    - test

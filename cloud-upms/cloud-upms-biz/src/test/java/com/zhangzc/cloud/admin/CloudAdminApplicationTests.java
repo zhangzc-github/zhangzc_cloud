@@ -2,7 +2,7 @@ package com.zhangzc.cloud.admin;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhangzc.cloud.admin.mapper.SysMenuMapper;
-import com.zhangzc.cloud.admin.mapper.SysUserRoleMapper;
+import com.zhangzc.cloud.admin.mapper.SysRoleMapper;
 import com.zhangzc.cloud.admin.service.SysUserService;
 import com.zhangzc.cloud.upms.api.entity.SysUser;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ class CloudAdminApplicationTests {
     @Autowired
     SysUserService sysUserService;
     @Autowired
-    SysUserRoleMapper sysUserRoleMapper;
+    SysRoleMapper sysRoleMapper;
     @Autowired
     SysMenuMapper sysMenuMapper;
     @Test
@@ -25,7 +25,7 @@ class CloudAdminApplicationTests {
 
     @Test
     void testMapper() {
-        System.out.println(sysUserRoleMapper.listRolesByUserId(1L));
+        System.out.println(sysRoleMapper.listRolesByUserId(1L));
         System.out.println(sysMenuMapper.listMenusByRoleId(1L));
     }
 

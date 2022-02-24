@@ -6,9 +6,13 @@ import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 /**
  * TODO
@@ -53,5 +57,14 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
             throw new CheckedException("Invalid basic authentication token");
         }
         return new String[] { token.substring(0, delim), token.substring(delim + 1) };
+    }
+
+    /**
+     * 获取 HttpServletRequest
+     * @return {HttpServletRequest}
+     */
+    public Optional<HttpServletRequest> getRequest() {
+        return Optional
+                .ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
     }
 }

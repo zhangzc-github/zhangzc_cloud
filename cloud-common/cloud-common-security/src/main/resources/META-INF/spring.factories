@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.zhangzc.cloud.common.security.service.CloudUserDetailServiceImpl
+  com.zhangzc.cloud.common.security.service.CloudUserDetailsServiceImpl

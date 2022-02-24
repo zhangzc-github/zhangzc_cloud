@@ -24,7 +24,7 @@ import java.util.*;
  * @date 2022/2/14 12:43 下午
  */
 @RequiredArgsConstructor
-public class CloudUserDetailServiceImpl implements UserDetailsService {
+public class CloudUserDetailsServiceImpl implements UserDetailsService {
     private final RemoteUserService remoteUserService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

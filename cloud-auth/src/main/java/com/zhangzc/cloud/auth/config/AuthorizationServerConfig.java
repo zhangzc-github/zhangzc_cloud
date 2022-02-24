@@ -30,7 +30,6 @@ import java.util.Map;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
-    private final TokenStore redisTokenStore;
 
     @Override
     @SneakyThrows
@@ -48,7 +47,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.authenticationManager(authenticationManager).tokenStore(redisTokenStore);
+        endpoints.authenticationManager(authenticationManager);
     }
 
 //    public TokenEnhancer tokenEnhancer() {

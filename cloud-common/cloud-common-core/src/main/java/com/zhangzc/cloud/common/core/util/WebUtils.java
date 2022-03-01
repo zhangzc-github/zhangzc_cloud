@@ -10,6 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -66,5 +67,13 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
     public Optional<HttpServletRequest> getRequest() {
         return Optional
                 .ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
+    }
+
+    /**
+     * 获取 HttpServletResponse
+     * @return {HttpServletResponse}
+     */
+    public HttpServletResponse getResponse() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
     }
 }

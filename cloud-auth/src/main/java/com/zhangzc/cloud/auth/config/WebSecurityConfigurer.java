@@ -1,5 +1,6 @@
 package com.zhangzc.cloud.auth.config;
 
+import com.zhangzc.cloud.common.security.handler.FormAuthenticationFailureHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 /**
  * 认证相关配置
@@ -28,7 +30,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @SneakyThrows
     protected void configure(HttpSecurity http) {
         http
-                .formLogin().loginPage("/token/login").loginProcessingUrl("/token/form")
+                .formLogin().loginPage("/token/login").loginProcessingUrl("/token/form").failureHandler(authenticationFailureHandler())
                 .and()
                 .authorizeRequests().antMatchers("/token/**").permitAll().anyRequest().authenticated()
                 .and()
@@ -71,6 +73,11 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         auth.authenticationProvider(daoAuthenticationProvider);
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new FormAuthenticationFailureHandler();
     }
 
 }

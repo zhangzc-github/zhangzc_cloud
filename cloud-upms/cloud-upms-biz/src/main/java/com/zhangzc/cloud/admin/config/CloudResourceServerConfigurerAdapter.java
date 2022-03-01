@@ -1,14 +1,16 @@
 package com.zhangzc.cloud.admin.config;
 
-import com.zhangzc.cloud.common.security.component.PermissionService;
+import com.zhangzc.cloud.common.security.component.CloudResourceServerAutoConfiguration;
 import com.zhangzc.cloud.common.security.component.PermitAllUrlProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 
 /**
  * 认证相关配置
@@ -19,8 +21,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(PermitAllUrlProperties.class)
-public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
+@Import({CloudResourceServerAutoConfiguration.class})
+public class CloudResourceServerConfigurerAdapter extends ResourceServerConfigurerAdapter {
+
+    private final ResourceServerTokenServices resourceServerTokenServices;
     private final PermitAllUrlProperties permitAllUrlProperties;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.authorizeRequests();
@@ -30,8 +36,8 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
                 .csrf().disable();
     }
 
-    @Bean("pms")
-    public PermissionService permissionService() {
-        return new PermissionService();
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.tokenServices(resourceServerTokenServices);
     }
 }

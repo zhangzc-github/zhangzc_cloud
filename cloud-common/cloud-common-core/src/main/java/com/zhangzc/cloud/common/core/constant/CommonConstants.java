@@ -29,4 +29,14 @@ public interface CommonConstants {
      * 菜单树根节点
      */
     Long MENU_TREE_ROOT_ID = -1L;
+
+    /**
+     * 当前页
+     */
+    String CURRENT = "current";
+
+    /**
+     * size
+     */
+    String SIZE = "size";
 }

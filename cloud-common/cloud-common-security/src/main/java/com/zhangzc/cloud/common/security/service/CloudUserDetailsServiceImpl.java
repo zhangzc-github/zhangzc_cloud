@@ -9,6 +9,7 @@ import com.zhangzc.cloud.upms.api.dto.UserInfo;
 import com.zhangzc.cloud.upms.api.entity.SysUser;
 import com.zhangzc.cloud.upms.api.feign.RemoteUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +25,7 @@ import java.util.*;
  * @date 2022/2/14 12:43 下午
  */
 @RequiredArgsConstructor
+@Primary
 public class CloudUserDetailsServiceImpl implements UserDetailsService {
     private final RemoteUserService remoteUserService;
     @Override

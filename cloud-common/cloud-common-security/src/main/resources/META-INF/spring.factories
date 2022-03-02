@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.zhangzc.cloud.common.security.service.CloudUserDetailsServiceImpl,\
-  com.zhangzc.cloud.common.security.component.TokenStoreAutoConfiguration
+  com.zhangzc.cloud.common.security.component.TokenStoreAutoConfiguration,\
+  com.zhangzc.cloud.common.security.component.CloudSecurityInnerAspect

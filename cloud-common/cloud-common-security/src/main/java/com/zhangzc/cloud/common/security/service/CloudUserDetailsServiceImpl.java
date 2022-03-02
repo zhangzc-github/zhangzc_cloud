@@ -30,7 +30,7 @@ public class CloudUserDetailsServiceImpl implements UserDetailsService {
     private final RemoteUserService remoteUserService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        R<UserInfo> result = remoteUserService.userInfo(username);
+        R<UserInfo> result = remoteUserService.userInfo(username, SecurityConstants.FROM_IN);
         return getUserDetails(result);
     }
 

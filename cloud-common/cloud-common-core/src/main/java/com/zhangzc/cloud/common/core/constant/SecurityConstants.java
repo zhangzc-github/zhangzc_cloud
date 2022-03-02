@@ -47,7 +47,38 @@ public interface SecurityConstants {
     String FROM = "from";
 
     /**
+     * 内部
+     */
+    String FROM_IN = "Y";
+
+    /**
      * 验证码有效期,默认 60秒
      */
     long CODE_TIME = 60;
+
+    /**
+     * 用户信息
+     */
+    String DETAILS_USER = "user_info";
+
+    /**
+     * 协议字段
+     */
+    String DETAILS_LICENSE = "license";
+
+    /**
+     * 客户端ID
+     */
+    String CLIENT_ID = "clientId";
+
+    /**
+     * 客户端模式
+     */
+    String CLIENT_CREDENTIALS = "client_credentials";
+
+    /**
+     * 项目的license
+     */
+    String PROJECT_LICENSE = "made by pig";
+
 }

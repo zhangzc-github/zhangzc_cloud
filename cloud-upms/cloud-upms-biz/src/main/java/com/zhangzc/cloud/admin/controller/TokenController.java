@@ -1,5 +1,6 @@
 package com.zhangzc.cloud.admin.controller;
 
+import com.zhangzc.cloud.common.core.constant.SecurityConstants;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.upms.api.feign.RemoteTokenService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,6 @@ public class TokenController {
 
     @GetMapping("/page")
     public R token(@RequestParam Map<String, Object> params) {
-        return remoteTokenService.getTokenPage(params);
+        return remoteTokenService.getTokenPage(params, SecurityConstants.FROM_IN);
     }
 }

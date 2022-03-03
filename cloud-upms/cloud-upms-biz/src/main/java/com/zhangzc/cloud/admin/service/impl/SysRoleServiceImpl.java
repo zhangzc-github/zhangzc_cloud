@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangzc.cloud.admin.mapper.SysRoleMapper;
 import com.zhangzc.cloud.admin.mapper.SysUserRoleMapper;
 import com.zhangzc.cloud.admin.service.SysRoleService;
+import com.zhangzc.cloud.common.core.constant.CacheConstants;
 import com.zhangzc.cloud.upms.api.entity.SysRole;
 import com.zhangzc.cloud.upms.api.entity.SysUserRole;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = CacheConstants.MENU_DETAILS, allEntries = true)
     public Boolean removeRoleById(Long id) {
         sysUserRoleMapper.delete(Wrappers.<SysUserRole>update().lambda().eq(SysUserRole::getRoleId, id));
         return this.removeById(id);

@@ -7,6 +7,7 @@ import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.upms.api.dto.UserDTO;
 import com.zhangzc.cloud.upms.api.dto.UserInfo;
 import com.zhangzc.cloud.upms.api.entity.SysUser;
+import com.zhangzc.cloud.upms.api.vo.UserExcelVO;
 import com.zhangzc.cloud.upms.api.vo.UserVO;
 import org.springframework.validation.BindingResult;
 
@@ -83,4 +84,19 @@ public interface SysUserService extends IService<SysUser> {
      * @return userIdList
      */
     List<Long> listUserIdByDeptIds(Set<Long> deptIds);
+
+    /**
+     * 查询全部的用户
+	 * @param userDTO 查询条件
+	 * @return list
+	 */
+    List<UserExcelVO> listUser(UserDTO userDTO);
+
+    /**
+     * excel 导入用户
+     * @param excelVOList excel 列表数据
+     * @param bindingResult 错误数据
+     * @return ok fail
+     */
+    R importUser(List<UserExcelVO> excelVOList, BindingResult bindingResult);
 }

@@ -10,11 +10,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangzc.cloud.admin.mapper.SysMenuMapper;
 import com.zhangzc.cloud.admin.mapper.SysRoleMenuMapper;
 import com.zhangzc.cloud.admin.service.SysMenuService;
+import com.zhangzc.cloud.common.core.constant.CacheConstants;
 import com.zhangzc.cloud.common.core.constant.CommonConstants;
 import com.zhangzc.cloud.common.core.constant.enums.MenuTypeEnum;
 import com.zhangzc.cloud.upms.api.entity.SysMenu;
 import com.zhangzc.cloud.upms.api.entity.SysRoleMenu;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -43,6 +46,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      * @return Set<SysMenu>
      */
     @Override
+    @Cacheable(value = CacheConstants.MENU_DETAILS, key = "#roleId  + '_menu'", unless = "#result == null")
     public Set<SysMenu> findMenuByRoleId(long roleId) {
         return baseMapper.listMenusByRoleId(roleId);
     }
@@ -54,6 +58,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = CacheConstants.MENU_DETAILS, allEntries = true)
     public Boolean removeMenuById(Long id) {
         List<SysMenu> menuList = this.list(Wrappers.<SysMenu>query().lambda().eq(SysMenu::getParentId, id));
 
@@ -69,6 +74,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      * @return 成功、失败
      */
     @Override
+    @CacheEvict(value = CacheConstants.MENU_DETAILS, allEntries = true)
     public Boolean updateMenuById(SysMenu sysMenu) {
         return this.updateMenuById(sysMenu);
     }
@@ -109,6 +115,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 .collect(Collectors.toList());
         Long parent = parentId == null ? CommonConstants.MENU_TREE_ROOT_ID : parentId;
         return TreeUtil.build(collect, parent);
+    }
+
+    @Override
+    @CacheEvict(value = CacheConstants.MENU_DETAILS, allEntries = true)
+    public void clearMenuCache() {
+
     }
 
     @NotNull

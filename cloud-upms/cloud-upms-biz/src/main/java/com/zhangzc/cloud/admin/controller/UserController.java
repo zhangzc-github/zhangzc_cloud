@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pig4cloud.plugin.excel.annotation.RequestExcel;
+import com.pig4cloud.plugin.excel.annotation.ResponseExcel;
 import com.zhangzc.cloud.admin.service.SysUserService;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.security.annotation.Inner;
@@ -11,14 +13,17 @@ import com.zhangzc.cloud.common.security.util.SecurityUtils;
 import com.zhangzc.cloud.upms.api.dto.UserDTO;
 import com.zhangzc.cloud.upms.api.dto.UserInfo;
 import com.zhangzc.cloud.upms.api.entity.SysUser;
+import com.zhangzc.cloud.upms.api.vo.UserExcelVO;
 import com.zhangzc.cloud.upms.api.vo.UserInfoVO;
 import com.zhangzc.cloud.upms.api.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 /**
  * UserController
@@ -45,6 +50,17 @@ public class UserController {
             return R.failed(String.format("用户信息为空 %s", username));
         }
         return R.ok(sysUserService.getUserInfo(sysUser));
+    }
+
+    /**
+     * 根据部门id，查询对应的用户 id 集合
+     * @param deptIds 部门id 集合
+     * @return 用户 id 集合
+     */
+    @Inner
+    @GetMapping("/ids")
+    public R<List<Long>> listUserIdByDeptIds(@RequestParam("deptIds") Set<Long> deptIds) {
+        return R.ok(sysUserService.listUserIdByDeptIds(deptIds));
     }
 
     /**
@@ -150,6 +166,30 @@ public class UserController {
     @GetMapping("/ancestor/{username}")
     public R<List<SysUser>> listAncestorUsers(@PathVariable String username) {
         return R.ok(sysUserService.listAncestorUsersByUsername(username));
+    }
+
+    /**
+     * 导出excel 表格
+     * @param userDTO 查询条件
+     * @return
+     */
+    @ResponseExcel
+    @GetMapping("/export")
+    @PreAuthorize("@pms.hasPermission('sys_user_import_export')")
+    public List<UserExcelVO> export(UserDTO userDTO) {
+        return sysUserService.listUser(userDTO);
+    }
+
+    /**
+     * 导入用户
+     * @param excelVOList 用户列表
+     * @param bindingResult 错误信息列表
+     * @return R
+     */
+    @PostMapping("/import")
+    @PreAuthorize("@pms.hasPermission('sys_user_import_export')")
+    public R importUser(@RequestExcel List<UserExcelVO> excelVOList, BindingResult bindingResult) {
+        return sysUserService.importUser(excelVOList, bindingResult);
     }
 
 }

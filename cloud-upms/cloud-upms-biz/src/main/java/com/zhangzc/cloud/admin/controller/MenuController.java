@@ -106,4 +106,14 @@ public class MenuController {
 		return R.ok(sysMenuService.updateMenuById(sysMenu));
 	}
 
+	/**
+	 * 清除菜单缓存
+	 */
+	@DeleteMapping("/cache")
+	@PreAuthorize("@pms.hasPermission('sys_menu_del')")
+	public R clearMenuCache() {
+		sysMenuService.clearMenuCache();
+		return R.ok();
+	}
+
 }

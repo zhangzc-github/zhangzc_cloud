@@ -5,15 +5,22 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangzc.cloud.admin.mapper.SysRoleMenuMapper;
 import com.zhangzc.cloud.admin.service.SysRoleMenuService;
+import com.zhangzc.cloud.common.core.constant.CacheConstants;
 import com.zhangzc.cloud.upms.api.entity.SysRoleMenu;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRoleMenu> implements SysRoleMenuService {
+
+    private final CacheManager cacheManager;
 
     /**
      * @param role role
@@ -34,6 +41,11 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
             roleMenu.setMenuId(Long.valueOf(menuId));
             return roleMenu;
         }).collect(Collectors.toList());
+
+        // 清空userinfo
+        Objects.requireNonNull(cacheManager.getCache(CacheConstants.USER_DETAILS)).clear();
+        // 清空全部的菜单缓存 fix #I4BM58
+        Objects.requireNonNull(cacheManager.getCache(CacheConstants.MENU_DETAILS)).clear();
 
         return this.saveBatch(roleMenuList);
     }

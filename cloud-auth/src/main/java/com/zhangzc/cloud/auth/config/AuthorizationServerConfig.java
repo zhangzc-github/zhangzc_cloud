@@ -1,6 +1,7 @@
 package com.zhangzc.cloud.auth.config;
 
 import com.zhangzc.cloud.common.core.constant.SecurityConstants;
+import com.zhangzc.cloud.common.security.service.CloudClientDetailsServiceImpl;
 import com.zhangzc.cloud.common.security.service.CloudUser;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -38,7 +39,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     @SneakyThrows
     public void configure(ClientDetailsServiceConfigurer clients) {
-        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        CloudClientDetailsServiceImpl clientDetailsService = new CloudClientDetailsServiceImpl(dataSource);
         clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
         clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
         clients.withClientDetails(clientDetailsService);

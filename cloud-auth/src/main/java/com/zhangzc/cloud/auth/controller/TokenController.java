@@ -46,6 +46,7 @@ public class TokenController {
      * @param params 分页参数
      * @return page
      */
+    @Inner
     @PostMapping("/page")
     public R<Page> tokenList(@RequestBody Map<String, Object> params) {
         String key = "auth_to_access:*";

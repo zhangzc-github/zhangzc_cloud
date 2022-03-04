@@ -1,6 +1,7 @@
 package com.zhangzc.cloud.auth.config;
 
 import com.zhangzc.cloud.common.core.constant.SecurityConstants;
+import com.zhangzc.cloud.common.security.component.CloudWebResponseExceptionTranslator;
 import com.zhangzc.cloud.common.security.service.CloudClientDetailsServiceImpl;
 import com.zhangzc.cloud.common.security.service.CloudUser;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore).tokenEnhancer(tokenEnhancer());
+        endpoints.authenticationManager(authenticationManager)
+                .tokenStore(tokenStore)
+                .tokenEnhancer(tokenEnhancer())
+                .exceptionTranslator(new CloudWebResponseExceptionTranslator());
     }
 
     /**

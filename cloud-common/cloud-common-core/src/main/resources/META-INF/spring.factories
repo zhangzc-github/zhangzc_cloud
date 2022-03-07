@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.zhangzc.cloud.common.core.config.RedisTemplateConfiguration
+  com.zhangzc.cloud.common.core.config.RedisTemplateConfiguration,\
+  com.zhangzc.cloud.common.core.util.SpringContextHolder

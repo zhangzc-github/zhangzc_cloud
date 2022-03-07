@@ -15,6 +15,7 @@
         <module>cloud-common-core</module>
         <module>cloud-common-security</module>
         <module>cloud-common-mybatis</module>
+        <module>cloud-common-log</module>
     </modules>
 
 

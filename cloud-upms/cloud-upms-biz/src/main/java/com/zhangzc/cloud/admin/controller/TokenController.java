@@ -4,10 +4,8 @@ import com.zhangzc.cloud.common.core.constant.SecurityConstants;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.upms.api.feign.RemoteTokenService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -18,8 +16,24 @@ public class TokenController {
 
     private final RemoteTokenService remoteTokenService;
 
+    /**
+     * 分页token 信息
+     * @param params 参数集
+     * @return token集合
+     */
     @GetMapping("/page")
     public R token(@RequestParam Map<String, Object> params) {
         return remoteTokenService.getTokenPage(params, SecurityConstants.FROM_IN);
+    }
+
+    /**
+     * 删除
+     * @param id ID
+     * @return success/false
+     */
+    @DeleteMapping("/{id}")
+    @PreAuthorize("@pms.hasPermission('sys_token_del')")
+    public R<Boolean> delete(@PathVariable String id) {
+        return remoteTokenService.removeToken(id, SecurityConstants.FROM_IN);
     }
 }

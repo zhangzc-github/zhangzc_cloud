@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @SpringBootApplication
 @EnableResourceServer
-@EnableFeignClients(basePackages = "com.zhangzc.cloud")
+@EnableFeignClients
 @EnableDiscoveryClient
 public class CloudAdminApplication {
 

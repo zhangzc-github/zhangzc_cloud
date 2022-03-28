@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.zhangzc.cloud.upms.api.feign.RemoteLogService,\
+  com.zhangzc.cloud.upms.api.feign.RemoteTokenService,\
+  com.zhangzc.cloud.upms.api.feign.RemoteUserService

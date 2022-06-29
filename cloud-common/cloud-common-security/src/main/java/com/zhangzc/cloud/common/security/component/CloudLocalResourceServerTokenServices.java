@@ -1,6 +1,9 @@
 package com.zhangzc.cloud.common.security.component;
 
+import cn.hutool.extra.spring.SpringUtil;
+import com.zhangzc.cloud.common.security.service.CloudClientDetailsServiceImpl;
 import com.zhangzc.cloud.common.security.service.CloudUser;
+import com.zhangzc.cloud.common.security.service.CloudUserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,7 +23,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 public class CloudLocalResourceServerTokenServices implements ResourceServerTokenServices {
 
     private final TokenStore tokenStore;
-    private final UserDetailsService userDetailsService;
 
     @Override
     public OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
@@ -30,6 +32,8 @@ public class CloudLocalResourceServerTokenServices implements ResourceServerToke
         OAuth2Request oAuth2Request = oAuth2Authentication.getOAuth2Request();
 
         if (!(oAuth2Authentication.getPrincipal() instanceof CloudUser)) return oAuth2Authentication;
+
+        UserDetailsService userDetailsService = SpringUtil.getBean(CloudUserDetailsServiceImpl.class);
 
         CloudUser cloudUser = (CloudUser) oAuth2Authentication.getPrincipal();
 

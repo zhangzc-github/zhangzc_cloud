@@ -14,7 +14,7 @@ public class CloudResourceServerAutoConfiguration {
 
     @Bean
     @Primary
-    public ResourceServerTokenServices resourceServerTokenServices(TokenStore tokenStore, UserDetailsService userDetailsService) {
-        return new CloudLocalResourceServerTokenServices(tokenStore, userDetailsService);
+    public ResourceServerTokenServices resourceServerTokenServices(TokenStore tokenStore) {
+        return new CloudLocalResourceServerTokenServices(tokenStore);
     }
 }

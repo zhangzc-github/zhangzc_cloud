@@ -3,6 +3,7 @@ package com.zhangzc.cloud.admin.config;
 import com.zhangzc.cloud.common.security.component.CloudResourceServerAutoConfiguration;
 import com.zhangzc.cloud.common.security.component.PermitAllUrlProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -19,13 +20,14 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
  * @date 2022/2/14 12:33 下午
  */
 @Configuration
-@RequiredArgsConstructor
 @EnableConfigurationProperties(PermitAllUrlProperties.class)
 @Import({CloudResourceServerAutoConfiguration.class})
 public class CloudResourceServerConfigurerAdapter extends ResourceServerConfigurerAdapter {
 
-    private final ResourceServerTokenServices resourceServerTokenServices;
-    private final PermitAllUrlProperties permitAllUrlProperties;
+    @Autowired
+    private ResourceServerTokenServices resourceServerTokenServices;
+    @Autowired
+    private PermitAllUrlProperties permitAllUrlProperties;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {

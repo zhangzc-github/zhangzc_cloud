@@ -69,6 +69,8 @@ public class TokenController {
         return removeToken(tokenValue);
     }
 
+    //TODO: confirm_access
+
     /**
      * 令牌管理调用
      * @param token token
@@ -109,7 +111,7 @@ public class TokenController {
         int current = MapUtil.getInt(params, CommonConstants.CURRENT);
         int size = MapUtil.getInt(params, CommonConstants.SIZE);
         Set<String> keys = redisTemplate.keys(key);
-        List<String> pages = keys.stream().skip(current - 1).limit(size).collect(Collectors.toList());
+        List<String> pages = keys.stream().skip((current - 1) * size).limit(size).collect(Collectors.toList());
         Page result = new Page<>(current, size);
         result.setRecords(redisTemplate.opsForValue().multiGet(pages));
         result.setTotal(keys.size());

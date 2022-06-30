@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -40,10 +41,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     @SneakyThrows
     public void configure(ClientDetailsServiceConfigurer clients) {
-        CloudClientDetailsServiceImpl clientDetailsService = new CloudClientDetailsServiceImpl(dataSource);
-        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
-        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
-        clients.withClientDetails(clientDetailsService);
+        clients.withClientDetails(cloudClientDetailsService());
     }
 
     @Override
@@ -76,6 +74,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
             return accessToken;
         };
+    }
+
+    /**
+     * 客户端信息加载处理
+     * @return ClientDetailsService
+     */
+    @Bean
+    public ClientDetailsService cloudClientDetailsService() {
+        CloudClientDetailsServiceImpl clientDetailsService = new CloudClientDetailsServiceImpl(dataSource);
+        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
+        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
+        return clientDetailsService;
     }
 
 }

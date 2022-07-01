@@ -96,13 +96,13 @@ public class PasswordDecoderFilter extends AbstractGatewayFilterFactory<Object> 
     private Function decryptAES() {
         return s -> {
             // 构建前端对应解密AES 因子
-            AES aes = new AES(Mode.CFB, Padding.NoPadding,
+            AES aes = new AES(Mode.CBC, Padding.NoPadding,
                     new SecretKeySpec(configProperties.getEncodeKey().getBytes(), KEY_ALGORITHM),
                     new IvParameterSpec(configProperties.getEncodeKey().getBytes()));
             Map<String, String> inParamMap = HttpUtil.decodeParamMap((String) s, CharsetUtil.CHARSET_UTF_8);
             if (inParamMap.containsKey(PASSWORD)) {
                 String password = aes.decryptStr(inParamMap.get(PASSWORD));
-                inParamMap.put(PASSWORD, password);
+                inParamMap.put(PASSWORD, password.trim());
             } else {
                 log.error("非法请求数据:{}", s);
             }

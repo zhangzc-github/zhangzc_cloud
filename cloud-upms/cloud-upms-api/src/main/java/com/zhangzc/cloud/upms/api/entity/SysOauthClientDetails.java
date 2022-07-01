@@ -2,31 +2,32 @@ package com.zhangzc.cloud.upms.api.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.zhangzc.cloud.common.mybatis.base.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
 
 /**
- * <p>
  * 客户端信息
- * </p>
- *
- * @author lengleng
- * @since 2019/2/1
+ * @version 1.0
+ * @author Zhichao Zhang
+ * @date 2022/7/1 3:46 下午
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysOauthClientDetails extends BaseEntity {
+public class SysOauthClientDetails extends Model<SysOauthClientDetails> {
 
 	private static final long serialVersionUID = 1L;
+
+	@TableId(value = "id", type = IdType.AUTO)
+	private Long id;
 
 	/**
 	 * 客户端ID
 	 */
 	@NotBlank(message = "client_id 不能为空")
-	@TableId(value = "client_id", type = IdType.INPUT)
 	private String clientId;
 
 	/**
@@ -47,9 +48,9 @@ public class SysOauthClientDetails extends BaseEntity {
 	private String scope;
 
 	/**
-	 * 授权方式（A,B,C）
+	 * 授权方式[A,B,C]
 	 */
-	private String authorizedGrantTypes;
+	private String[] authorizedGrantTypes;
 
 	/**
 	 * 回调地址
@@ -80,5 +81,11 @@ public class SysOauthClientDetails extends BaseEntity {
 	 * 是否自动放行
 	 */
 	private String autoapprove;
+
+	/**
+	 * 删除标记
+	 */
+	@TableLogic
+	private String delFlag;
 
 }

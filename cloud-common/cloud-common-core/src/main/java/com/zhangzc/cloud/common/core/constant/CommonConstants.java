@@ -39,4 +39,9 @@ public interface CommonConstants {
      * size
      */
     String SIZE = "size";
+
+    /**
+     * 滑块验证码
+     */
+    String IMAGE_CODE_TYPE = "blockPuzzle";
 }

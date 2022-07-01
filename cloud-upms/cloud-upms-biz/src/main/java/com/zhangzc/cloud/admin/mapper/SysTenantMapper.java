@@ -1,17 +1,16 @@
 package com.zhangzc.cloud.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zhangzc.cloud.upms.api.entity.SysDept;
+import com.zhangzc.cloud.upms.api.entity.SysTenant;
 import org.apache.ibatis.annotations.Mapper;
-import java.util.List;
 
 /**
- * SysDept Mapper接口
+ * SysTenantMapper 接口
  * @version 1.0
  * @author Zhichao Zhang
- * @date 2022/2/21 11:17 上午
+ * @date 2022/7/1 12:19 下午
  */
 @Mapper
-public interface SysDeptMapper extends BaseMapper<SysDept> {
+public interface SysTenantMapper extends BaseMapper<SysTenant> {
 
 }

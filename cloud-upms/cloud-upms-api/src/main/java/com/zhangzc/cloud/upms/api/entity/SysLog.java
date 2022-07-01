@@ -3,33 +3,26 @@ package com.zhangzc.cloud.upms.api.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.zhangzc.cloud.common.mybatis.base.BaseEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * <p>
  * 日志表
- * </p>
- *
- * @author lengleng
- * @since 2019/2/1
+ * @version 1.0
+ * @author Zhichao Zhang
+ * @date 2022/7/1 3:52 下午
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class SysLog extends BaseEntity {
+public class SysLog implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 编号
 	 */
-	@TableId(value = "id", type = IdType.ASSIGN_ID)
-	@JsonSerialize(using = ToStringSerializer.class)
+	@TableId(type = IdType.AUTO)
 	private Long id;
 
 	/**
@@ -45,12 +38,27 @@ public class SysLog extends BaseEntity {
 	private String title;
 
 	/**
+	 * 创建者
+	 */
+	private String createBy;
+
+	/**
+	 * 创建时间
+	 */
+	private LocalDateTime createTime;
+
+	/**
+	 * 更新时间
+	 */
+	private LocalDateTime updateTime;
+
+	/**
 	 * 操作IP地址
 	 */
 	private String remoteAddr;
 
 	/**
-	 * 用户浏览器
+	 * 用户代理
 	 */
 	private String userAgent;
 

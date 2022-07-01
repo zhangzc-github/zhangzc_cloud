@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
  * 部门关系表
  * @version 1.0
  * @author Zhichao Zhang
- * @date 2022/2/21 11:00 上午
+ * @date 2022/7/1 3:49 下午
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

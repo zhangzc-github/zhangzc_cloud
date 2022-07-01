@@ -5,9 +5,12 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhangzc.cloud.common.core.constant.CacheConstants;
 import com.zhangzc.cloud.common.core.constant.CommonConstants;
+import com.zhangzc.cloud.common.core.constant.SecurityConstants;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.core.util.SpringContextHolder;
 import com.zhangzc.cloud.common.security.annotation.Inner;
+import com.zhangzc.cloud.upms.api.entity.SysTenant;
+import com.zhangzc.cloud.upms.api.feign.RemoteTenantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -42,6 +45,8 @@ public class TokenController {
 
     private final CacheManager cacheManager;
 
+    private final RemoteTenantService tenantService;
+
     /**
      * 认证页面
      * @param modelAndView ModelAndView
@@ -50,8 +55,10 @@ public class TokenController {
      */
     @GetMapping("/login")
     public ModelAndView login(ModelAndView modelAndView, @RequestParam(required = false) String error) {
-        modelAndView.setViewName("/ftl/login");
+        R<List<SysTenant>> tenantList = tenantService.list(SecurityConstants.FROM_IN);
         modelAndView.addObject("error", error);
+        modelAndView.addObject("tenantList", tenantList.getData());
+        modelAndView.setViewName("/ftl/login");
         return modelAndView;
     }
 

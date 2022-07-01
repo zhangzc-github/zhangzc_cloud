@@ -5,56 +5,54 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
- * 字典项
+ * 系统社交登录账号表
  * @version 1.0
  * @author Zhichao Zhang
- * @date 2022/7/1 3:51 下午
+ * @date 2022/7/1 3:55 下午
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysDictItem extends Model<SysDictItem> {
+public class SysSocialDetails extends Model<SysSocialDetails> {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 编号
+	 * 主鍵
 	 */
 	@TableId
 	private Long id;
 
 	/**
-	 * 所属字典类id
-	 */
-	private Long dictId;
-
-	/**
-	 * 数据值
-	 */
-	private String value;
-
-	/**
-	 * 标签名
-	 */
-	private String label;
-
-	/**
 	 * 类型
 	 */
+	@NotBlank(message = "类型不能为空")
 	private String type;
 
 	/**
 	 * 描述
 	 */
-	private String description;
+	private String remark;
 
 	/**
-	 * 排序（升序）
+	 * appid
 	 */
-	private Integer sortOrder;
+	@NotBlank(message = "账号不能为空")
+	private String appId;
+
+	/**
+	 * app_secret
+	 */
+	@NotBlank(message = "密钥不能为空")
+	private String appSecret;
+
+	/**
+	 * 回调地址
+	 */
+	private String redirectUrl;
 
 	/**
 	 * 创建时间
@@ -65,11 +63,6 @@ public class SysDictItem extends Model<SysDictItem> {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
-
-	/**
-	 * 备注信息
-	 */
-	private String remark;
 
 	/**
 	 * 删除标记

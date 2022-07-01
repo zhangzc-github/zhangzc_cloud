@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * @author Zhichao Zhang
  * @date 2022/3/7 12:00 下午
  */
-@FeignClient(contextId = "remoteLogService", value = ServiceNameConstants.UMPS_SERVICE)
+@FeignClient(contextId = "remoteLogService", value = ServiceNameConstants.UPMS_SERVICE)
 public interface RemoteLogService {
     /**
      * 保存日志

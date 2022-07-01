@@ -3,12 +3,16 @@ package com.zhangzc.cloud.gateway.filter;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.anji.captcha.model.vo.CaptchaVO;
+import com.anji.captcha.service.CaptchaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhangzc.cloud.common.core.constant.CacheConstants;
+import com.zhangzc.cloud.common.core.constant.CommonConstants;
 import com.zhangzc.cloud.common.core.constant.SecurityConstants;
 import com.zhangzc.cloud.common.core.exception.ValidateCodeException;
 import com.zhangzc.cloud.common.core.util.R;
+import com.zhangzc.cloud.common.core.util.SpringContextHolder;
 import com.zhangzc.cloud.common.core.util.WebUtils;
 import com.zhangzc.cloud.gateway.config.GatewayConfigProperties;
 import lombok.RequiredArgsConstructor;
@@ -91,6 +95,19 @@ public class ValidateCodeGatewayFilter extends AbstractGatewayFilterFactory<Obje
         }
 
         String randomStr = request.getQueryParams().getFirst("randomStr");
+
+        // 若是滑块登录
+        if (CommonConstants.IMAGE_CODE_TYPE.equalsIgnoreCase(randomStr)) {
+            CaptchaService captchaService = SpringContextHolder.getBean(CaptchaService.class);
+            CaptchaVO vo = new CaptchaVO();
+            vo.setCaptchaVerification(code);
+            vo.setCaptchaType(CommonConstants.IMAGE_CODE_TYPE);
+            if (!captchaService.verification(vo).isSuccess()) {
+                throw new ValidateCodeException("验证码不能为空");
+            }
+            return;
+        }
+
         if (CharSequenceUtil.isBlank(randomStr)) {
             randomStr = request.getQueryParams().getFirst("mobile");
         }

@@ -9,52 +9,53 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * 字典项
+ * 租户
  * @version 1.0
  * @author Zhichao Zhang
- * @date 2022/7/1 3:51 下午
+ * @date 2022/7/1 12:17 下午
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysDictItem extends Model<SysDictItem> {
+public class SysTenant extends Model<SysTenant> {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 编号
+	 * 租户id
 	 */
 	@TableId
 	private Long id;
 
 	/**
-	 * 所属字典类id
+	 * 租户名称
 	 */
-	private Long dictId;
+	private String name;
 
 	/**
-	 * 数据值
+	 * 租户编号
 	 */
-	private String value;
+	private String code;
 
 	/**
-	 * 标签名
+	 * 开始时间
 	 */
-	private String label;
+	private LocalDateTime startTime;
 
 	/**
-	 * 类型
+	 * 结束时间
 	 */
-	private String type;
+	private LocalDateTime endTime;
 
 	/**
-	 * 描述
+	 * 0正常 9-冻结
 	 */
-	private String description;
+	private String status;
 
 	/**
-	 * 排序（升序）
+	 * 删除标记
 	 */
-	private Integer sortOrder;
+	@TableLogic
+	private String delFlag;
 
 	/**
 	 * 创建时间
@@ -65,16 +66,5 @@ public class SysDictItem extends Model<SysDictItem> {
 	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
-
-	/**
-	 * 备注信息
-	 */
-	private String remark;
-
-	/**
-	 * 删除标记
-	 */
-	@TableLogic
-	private String delFlag;
 
 }

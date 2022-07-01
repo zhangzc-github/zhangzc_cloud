@@ -9,5 +9,5 @@ public interface ServiceNameConstants {
     /**
      * UMPS模块
      */
-    String UMPS_SERVICE = "cloud-upms-biz";
+    String UPMS_SERVICE = "cloud-upms-biz";
 }

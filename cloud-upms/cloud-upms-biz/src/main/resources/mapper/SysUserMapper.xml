@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhangzc.cloud.admin.mapper.SysUserMapper">
 	<!-- 通用查询映射结果 -->
 	<resultMap id="baseResultMap" type="com.zhangzc.cloud.upms.api.vo.UserVO">
@@ -11,12 +9,15 @@
 		<result column="salt" property="salt"/>
 		<result column="phone" property="phone"/>
 		<result column="avatar" property="avatar"/>
+		<result column="wx_openid" property="wxOpenid"/>
+		<result column="qq_openid" property="qqOpenid"/>
 		<result column="ucreate_time" property="createTime"/>
 		<result column="uupdate_time" property="updateTime"/>
 		<result column="lock_flag" property="lockFlag"/>
 		<result column="udel_flag" property="delFlag"/>
-		<result column="deptId" property="deptId"/>
-		<result column="deptName" property="deptName"/>
+		<result column="dept_id" property="deptId"/>
+		<result column="tenant_id" property="tenantId"/>
+		<result column="dept_name" property="deptName"/>
 		<collection property="roleList" ofType="com.zhangzc.cloud.upms.api.entity.SysRole"
 					select="com.zhangzc.cloud.admin.mapper.SysRoleMapper.listRolesByUserId" column="user_id">
 		</collection>
@@ -30,12 +31,15 @@
 		<result column="salt" property="salt"/>
 		<result column="phone" property="phone"/>
 		<result column="avatar" property="avatar"/>
+		<result column="wx_openid" property="wxOpenid"/>
+		<result column="qq_openid" property="qqOpenid"/>
 		<result column="ucreate_time" property="createTime"/>
 		<result column="uupdate_time" property="updateTime"/>
 		<result column="lock_flag" property="lockFlag"/>
 		<result column="udel_flag" property="delFlag"/>
-		<result column="deptId" property="deptId"/>
-		<result column="deptName" property="deptName"/>
+		<result column="dept_id" property="deptId"/>
+		<result column="tenant_id" property="tenantId"/>
+		<result column="dept_name" property="deptName"/>
 		<collection property="roleList" ofType="com.zhangzc.cloud.upms.api.entity.SysRole">
 			<id column="role_id" property="roleId"/>
 			<result column="role_name" property="roleName"/>
@@ -47,111 +51,98 @@
 	</resultMap>
 
 	<sql id="userRoleSql">
-		sys_user.user_id,
-		sys_user.username,
-		sys_user.`password`,
-		sys_user.salt,
-		sys_user.phone,
-		sys_user.avatar,
-		sys_user.dept_id,
-		sys_user.create_time AS ucreate_time,
-		sys_user.update_time AS uupdate_time,
-		sys_user.del_flag    AS udel_flag,
-		sys_user.lock_flag   AS lock_flag,
-		sys_user.dept_id     AS deptId,
+		u.user_id,
+		u.username,
+		u.password,
+		u.salt,
+		u.phone,
+		u.avatar,
+		u.wx_openid,
+		u.qq_openid,
+		u.dept_id,
+		u.del_flag,
+		u.lock_flag,
+		u.tenant_id,
+		u.create_time  ucreate_time,
+		u.update_time  uupdate_time,
 		r.role_id,
 		r.role_name,
 		r.role_code,
 		r.role_desc,
-		r.create_time        AS rcreate_time,
-		r.update_time        AS rupdate_time
+		r.create_time  rcreate_time,
+		r.update_time  rupdate_time
 	</sql>
 
 	<sql id="userRoleDeptSql">
-		sys_user.user_id,
-		sys_user.username,
-		sys_user.`password`,
-		sys_user.salt,
-		sys_user.phone,
-		sys_user.avatar,
-		sys_user.create_time AS ucreate_time,
-		sys_user.update_time AS uupdate_time,
-		sys_user.del_flag    AS udel_flag,
-		sys_user.lock_flag   AS lock_flag,
+		u.user_id,
+		u.username,
+		u.password,
+		u.salt,
+		u.phone,
+		u.avatar,
+		u.wx_openid,
+		u.qq_openid,
+		u.del_flag,
+		u.lock_flag,
+		u.tenant_id,
+		u.create_time  ucreate_time,
+		u.update_time  uupdate_time,
 		r.role_id,
 		r.role_name,
 		r.role_code,
 		r.role_desc,
-		r.create_time        AS rcreate_time,
-		r.update_time        AS rupdate_time,
-		d.name               AS deptName,
-		d.dept_id            AS deptId
-	</sql>
+		r.create_time  rcreate_time,
+		r.update_time  rupdate_time,
+		d.name  dept_name,
+		d.dept_id
+    </sql>
 
 	<select id="getUserVoByUsername" resultMap="userVoResultMap">
 		SELECT
-		<include refid="userRoleSql"/>
-		FROM sys_user AS sys_user
-					 LEFT JOIN sys_user_role AS ur ON ur.user_id = sys_user.user_id
-					 LEFT JOIN sys_role AS r ON r.role_id = ur.role_id
-		WHERE sys_user.username = #{username}
+			<include refid="userRoleSql"/>
+		FROM
+		sys_user  u
+		LEFT JOIN sys_user_role  ur ON ur.user_id = u.user_id
+		LEFT JOIN sys_role  r ON r.role_id = ur.role_id
+			WHERE u.username = #{username}
 	</select>
 
 	<select id="getUserVoById" resultMap="userVoResultMap">
-		SELECT
-		<include refid="userRoleDeptSql"/>
-		FROM sys_user AS sys_user
-					 LEFT JOIN sys_user_role AS ur ON ur.user_id = sys_user.user_id
-					 LEFT JOIN sys_role AS r ON r.role_id = ur.role_id
-					 LEFT JOIN sys_dept AS d ON d.dept_id = sys_user.dept_id
-		WHERE sys_user.user_id = #{id}
-	</select>
+        SELECT
+	   		<include refid="userRoleDeptSql"/>
+        FROM
+            sys_user  u
+            LEFT JOIN sys_user_role  ur ON ur.user_id = u.user_id
+            LEFT JOIN sys_role  r ON r.role_id = ur.role_id
+            LEFT JOIN sys_dept  d ON d.dept_id = u.dept_id
+        WHERE
+           u.user_id = #{id}
+    </select>
 
 	<select id="getUserVosPage" resultMap="baseResultMap">
-		SELECT sys_user.user_id,
-			   sys_user.username,
-			   sys_user.salt,
-			   sys_user.phone,
-			   sys_user.avatar,
-			   sys_user.dept_id,
-			   sys_user.create_time AS ucreate_time,
-			   sys_user.update_time AS uupdate_time,
-			   sys_user.del_flag    AS udel_flag,
-			   sys_user.lock_flag   AS lock_flag,
-			   sys_user.dept_id     AS deptId,
-			   sys_dept.name        AS deptName
-		FROM sys_user
-					 LEFT JOIN sys_dept ON sys_dept.dept_id = sys_user.dept_id
-		<where>
-			sys_user.del_flag = '0'
-			<if test="query.username != null and query.username != ''">
-				<bind name="usernameLike" value="'%' + query.username + '%'" />
-				and sys_user.username LIKE  #{usernameLike}
-			</if>
-		</where>
-		ORDER BY sys_user.create_time DESC
-	</select>
-
-	<select id="selectVoList" resultMap="baseResultMap">
-		SELECT u.user_id,
-			   u.username,
-			   u.password,
-			   u.salt,
-			   u.phone,
-			   u.avatar,
-			   u.dept_id,
-			   u.create_time ucreate_time,
-			   u.update_time uupdate_time,
-			   u.del_flag,
-			   u.lock_flag,
-			   d.name AS     deptName
-		FROM sys_user u
-					 LEFT JOIN sys_dept d ON d.dept_id = u.dept_id
+		SELECT
+		u.user_id,
+		u.username,
+		u.password,
+		u.salt,
+		u.phone,
+		u.avatar,
+		u.wx_openid,
+		u.qq_openid,
+		u.dept_id,
+		u.create_time  ucreate_time,
+		u.update_time  uupdate_time,
+		u.del_flag,
+		u.lock_flag,
+		u.tenant_id,
+		 d.name  dept_name
+		FROM
+		sys_user  u
+		LEFT JOIN sys_dept  d ON d.dept_id = u.dept_id
 		<where>
 			u.del_flag = '0'
 			<if test="query.username != null and query.username != ''">
-				<bind name="usernameLike" value="'%' + query.username + '%'" />
-				AND u.username LIKE #{usernameLike}
+				AND u.username LIKE CONCAT('%',#{query.username},'%')
 			</if>
 			<if test="query.deptId != null and query.deptId != ''">
 				AND u.dept_id = #{query.deptId}

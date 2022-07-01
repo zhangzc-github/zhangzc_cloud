@@ -3,26 +3,28 @@ package com.zhangzc.cloud.upms.api.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.zhangzc.cloud.common.mybatis.base.BaseEntity;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 /**
- * TODO
+ * 文件管理
  * @version 1.0
  * @author Zhichao Zhang
- * @date 2022/3/3 11:04 上午
+ * @date 2022/7/1 3:51 下午
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysFile extends BaseEntity {
+public class SysFile extends Model<SysFile> {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 编号
 	 */
-	@TableId(type = IdType.ASSIGN_ID)
+	@TableId(type = IdType.AUTO)
 	private Long id;
 
 	/**
@@ -49,6 +51,26 @@ public class SysFile extends BaseEntity {
 	 * 文件大小
 	 */
 	private Long fileSize;
+
+	/**
+	 * 上传人
+	 */
+	private String createUser;
+
+	/**
+	 * 上传时间
+	 */
+	private LocalDateTime createTime;
+
+	/**
+	 * 更新人
+	 */
+	private String updateUser;
+
+	/**
+	 * 更新时间
+	 */
+	private LocalDateTime updateTime;
 
 	/**
 	 * 删除标识：1-删除，0-正常

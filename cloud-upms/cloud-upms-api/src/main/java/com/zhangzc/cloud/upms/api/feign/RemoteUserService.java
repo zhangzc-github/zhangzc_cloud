@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(contextId = "remoteUserService", value = ServiceNameConstants.UMPS_SERVICE)
+@FeignClient(contextId = "remoteUserService", value = ServiceNameConstants.UPMS_SERVICE)
 public interface RemoteUserService {
     /**
      * 通过用户名查询用户信息、角色信息

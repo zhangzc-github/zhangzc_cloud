@@ -5,7 +5,8 @@ import com.zhangzc.cloud.gateway.filter.CloudRequestGlobalFilter;
 import com.zhangzc.cloud.gateway.filter.PasswordDecoderFilter;
 import com.zhangzc.cloud.gateway.filter.ValidateCodeGatewayFilter;
 import com.zhangzc.cloud.gateway.handler.GlobalExceptionHandler;
-import com.zhangzc.cloud.gateway.handler.ImageCodeHandler;
+import com.zhangzc.cloud.gateway.handler.ImageCodeCheckHandler;
+import com.zhangzc.cloud.gateway.handler.ImageCodeCreateHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,8 +44,12 @@ public class GatewayConfiguration {
     }
 
     @Bean
-    public ImageCodeHandler imageCodeHandler(RedisTemplate redisTemplate) {
-        return new ImageCodeHandler(redisTemplate);
+    public ImageCodeCreateHandler imageCodeCreateHandler(ObjectMapper objectMapper) {
+        return new ImageCodeCreateHandler(objectMapper);
+    }
+    @Bean
+    public ImageCodeCheckHandler imageCodeCheckHandler(ObjectMapper objectMapper) {
+        return new ImageCodeCheckHandler(objectMapper);
     }
 
 }

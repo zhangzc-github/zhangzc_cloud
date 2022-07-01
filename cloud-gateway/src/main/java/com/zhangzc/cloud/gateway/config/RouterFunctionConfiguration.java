@@ -1,6 +1,7 @@
 package com.zhangzc.cloud.gateway.config;
 
-import com.zhangzc.cloud.gateway.handler.ImageCodeHandler;
+import com.zhangzc.cloud.gateway.handler.ImageCodeCheckHandler;
+import com.zhangzc.cloud.gateway.handler.ImageCodeCreateHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -22,12 +23,14 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @RequiredArgsConstructor
 public class RouterFunctionConfiguration {
 
-	private final ImageCodeHandler imageCodeHandler;
+	private final ImageCodeCreateHandler imageCodeCreateHandler;
+	private final ImageCodeCheckHandler imageCodeCheckHandler;
 
 	@Bean
 	public RouterFunction<ServerResponse> routerFunction() {
 		return RouterFunctions.route(
-				RequestPredicates.path("/code").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), imageCodeHandler);
+				RequestPredicates.path("/code").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), imageCodeCreateHandler)
+				.andRoute(RequestPredicates.path("/code/check").and(RequestPredicates.accept(MediaType.ALL)), imageCodeCheckHandler);
 	}
 
 }

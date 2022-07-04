@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.zhangzc.cloud.common.data.tenant.TenantContextHolderFilter,\
+  com.zhangzc.cloud.common.data.tenant.CloudTenantConfiguration,\
+  com.zhangzc.cloud.common.data.mybatis.MybatisPlusConfiguration,\
+  com.zhangzc.cloud.common.data.cache.RedisTemplateConfiguration

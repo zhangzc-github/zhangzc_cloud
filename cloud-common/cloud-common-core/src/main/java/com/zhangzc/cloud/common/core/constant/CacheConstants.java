@@ -26,4 +26,9 @@ public interface CacheConstants {
      */
     String CLIENT_DETAILS_KEY = "pig_oauth:client:details";
 
+    /**
+     * 客户端配置缓存
+     */
+    String CLIENT_FLAG = "client_config_flag";
+
 }

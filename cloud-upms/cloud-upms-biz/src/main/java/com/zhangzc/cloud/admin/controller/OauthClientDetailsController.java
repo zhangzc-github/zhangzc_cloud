@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhangzc.cloud.admin.service.SysOauthClientDetailsService;
 import com.zhangzc.cloud.common.core.util.R;
+import com.zhangzc.cloud.common.security.annotation.Inner;
+import com.zhangzc.cloud.upms.api.dto.SysOauthClientDetailsDTO;
 import com.zhangzc.cloud.upms.api.entity.SysOauthClientDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,18 +47,18 @@ public class OauthClientDetailsController {
 	@GetMapping("/page")
 	public R<IPage<SysOauthClientDetails>> getOauthClientDetailsPage(Page page,
 			SysOauthClientDetails sysOauthClientDetails) {
-		return R.ok(sysOauthClientDetailsService.page(page, Wrappers.query(sysOauthClientDetails)));
+		return R.ok(sysOauthClientDetailsService.queryPage(page, sysOauthClientDetails));
 	}
 
 	/**
 	 * 添加
-	 * @param sysOauthClientDetails 实体
+	 * @param sysOauthClientDetailsDTO 实体
 	 * @return success/false
 	 */
 	@PostMapping
 	@PreAuthorize("@pms.hasPermission('sys_client_add')")
-	public R<Boolean> add(@Valid @RequestBody SysOauthClientDetails sysOauthClientDetails) {
-		return R.ok(sysOauthClientDetailsService.save(sysOauthClientDetails));
+	public R<Boolean> add(@Valid @RequestBody SysOauthClientDetailsDTO sysOauthClientDetailsDTO) {
+		return R.ok(sysOauthClientDetailsService.saveClient(sysOauthClientDetailsDTO));
 	}
 
 	/**
@@ -72,20 +74,20 @@ public class OauthClientDetailsController {
 
 	/**
 	 * 编辑
-	 * @param sysOauthClientDetails 实体
+	 * @param sysOauthClientDetailsDTO 实体
 	 * @return success/false
 	 */
 	@PutMapping
 	@PreAuthorize("@pms.hasPermission('sys_client_edit')")
-	public R<Boolean> update(@Valid @RequestBody SysOauthClientDetails sysOauthClientDetails) {
-		return R.ok(sysOauthClientDetailsService.updateClientDetailsById(sysOauthClientDetails));
+	public R<Boolean> update(@Valid @RequestBody SysOauthClientDetailsDTO sysOauthClientDetailsDTO) {
+		return R.ok(sysOauthClientDetailsService.updateClientDetailsById(sysOauthClientDetailsDTO));
 	}
 
-	@DeleteMapping("/cache")
-	@PreAuthorize("@pms.hasPermission('sys_client_del')")
-	public R clearClientCache() {
-		sysOauthClientDetailsService.clearClientCache();
-		return R.ok();
+	@Inner(false)
+	@GetMapping("/getClientDetailsById/{clientId}")
+	public R getClientDetailsById(@PathVariable String clientId) {
+		return R.ok(sysOauthClientDetailsService.getOne(
+				Wrappers.<SysOauthClientDetails>lambdaQuery().eq(SysOauthClientDetails::getClientId, clientId), false));
 	}
 
 }

@@ -44,4 +44,24 @@ public interface CommonConstants {
      * 滑块验证码
      */
     String IMAGE_CODE_TYPE = "blockPuzzle";
+
+    /**
+     * header 中租户ID
+     */
+    String TENANT_ID = "TENANT-ID";
+
+    /**
+     * 租户ID
+     */
+    Integer TENANT_ID_1 = 1;
+
+    /**
+     * 密码传输是否加密
+     */
+    String ENC_FLAG = "enc_flag";
+
+    /**
+     * 验证码开关
+     */
+    String CAPTCHA_FLAG = "captcha_flag";
 }

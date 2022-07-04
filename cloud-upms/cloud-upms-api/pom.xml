@@ -17,13 +17,6 @@
             <artifactId>cloud-common-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--mybatis-->
-        <dependency>
-            <groupId>com.zhangzc</groupId>
-            <artifactId>cloud-common-mybatis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
         <!--openfeign-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

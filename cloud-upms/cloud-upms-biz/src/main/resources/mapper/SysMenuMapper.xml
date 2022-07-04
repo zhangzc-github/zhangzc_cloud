@@ -34,7 +34,7 @@
 	</resultMap>
 
 	<!--通过角色查询菜单信息-->
-	<select id="listMenusByRoleId" resultMap="MenuVoResultMap">
+	<select id="listMenusByRoleId" resultMap="BaseResultMap">
 		SELECT
 			sys_menu.*
 		FROM
@@ -44,7 +44,7 @@
 			sys_menu.del_flag = 0
 		AND sys_role_menu.role_id = #{roleId}
 		ORDER BY
-			sys_menu.sort DESC
+			sys_menu.sort_order DESC
     </select>
 
 	<!--通过角色ID 查询权限-->

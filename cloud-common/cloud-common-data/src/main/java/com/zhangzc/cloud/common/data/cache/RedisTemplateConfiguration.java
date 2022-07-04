@@ -1,4 +1,4 @@
-package com.zhangzc.cloud.common.core.config;
+package com.zhangzc.cloud.common.data.cache;
 
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;

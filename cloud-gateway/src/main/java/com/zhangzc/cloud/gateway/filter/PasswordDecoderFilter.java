@@ -6,7 +6,13 @@ import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.zhangzc.cloud.common.core.constant.CacheConstants;
+import com.zhangzc.cloud.common.core.constant.CommonConstants;
 import com.zhangzc.cloud.common.core.constant.SecurityConstants;
+import com.zhangzc.cloud.common.core.constant.enums.EncFlagTypeEnum;
+import com.zhangzc.cloud.common.core.util.WebUtils;
 import com.zhangzc.cloud.gateway.config.GatewayConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +21,8 @@ import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFac
 import org.springframework.cloud.gateway.filter.factory.rewrite.CachedBodyOutputMessage;
 import org.springframework.cloud.gateway.support.BodyInserterContext;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.HttpMessageReader;
@@ -52,6 +60,7 @@ public class PasswordDecoderFilter extends AbstractGatewayFilterFactory<Object> 
     private static final String KEY_ALGORITHM = "AES";
 
     private final GatewayConfigProperties configProperties;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public GatewayFilter apply(Object config) {
@@ -68,12 +77,15 @@ public class PasswordDecoderFilter extends AbstractGatewayFilterFactory<Object> 
                 return chain.filter(exchange);
             }
 
-            // 3. 前端加密密文解密逻辑
+            // 3. 判断是否需要解密
+            if (!isEncClient(request)) return chain.filter(exchange);
+
+            // 4. 前端加密密文解密逻辑
             Class inClass = String.class;
             Class outClass = String.class;
             ServerRequest serverRequest = ServerRequest.create(exchange, messageReaders);
 
-            // 4. 解密生成新的报文
+            // 5. 解密生成新的报文
             Mono<?> modifiedBody = serverRequest.bodyToMono(inClass).flatMap(decryptAES());
 
             BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, outClass);
@@ -87,6 +99,37 @@ public class PasswordDecoderFilter extends AbstractGatewayFilterFactory<Object> 
                 return chain.filter(exchange.mutate().request(decorator).build());
             }));
         };
+    }
+
+    /**
+     * 根据请求的clientId 查询客户端配置是否是加密传输
+     * @param request 请求上下文
+     * @return true 加密传输 、 false 原文传输
+     */
+    private boolean isEncClient(ServerHttpRequest request) {
+        // 获取client id
+        String auth = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+        String clientId = WebUtils.extractClientId(auth).orElse(null);
+        // 获取tenant id
+        String tenantId = request.getHeaders().getFirst(CommonConstants.TENANT_ID);
+        String key = String.format("%s:%s:%s", StrUtil.isBlank(tenantId) ? CommonConstants.TENANT_ID_1 : tenantId,
+                CacheConstants.CLIENT_FLAG, clientId);
+
+        redisTemplate.setKeySerializer(RedisSerializer.string());
+
+        Object val = redisTemplate.opsForValue().get(key);
+
+        // 当配置不存在时，默认需要解密
+        if (val == null) {
+            return true;
+        }
+
+        JSONObject information = JSONUtil.parseObj(val.toString());
+        if (StrUtil.equals(EncFlagTypeEnum.NO.getType(), information.getStr(CommonConstants.ENC_FLAG))) {
+            return false;
+        }
+        return true;
+
     }
 
     /**

@@ -81,4 +81,9 @@ public interface SecurityConstants {
      */
     String PROJECT_LICENSE = "made by pig";
 
+    /**
+     * 手机号登录URL
+     */
+    String SMS_TOKEN_URL = "/mobile/token/sms";
+
 }

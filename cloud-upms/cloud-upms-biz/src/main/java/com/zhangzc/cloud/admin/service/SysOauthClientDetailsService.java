@@ -1,6 +1,8 @@
 package com.zhangzc.cloud.admin.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhangzc.cloud.upms.api.dto.SysOauthClientDetailsDTO;
 import com.zhangzc.cloud.upms.api.entity.SysOauthClientDetails;
 
 /**
@@ -20,14 +22,24 @@ public interface SysOauthClientDetailsService extends IService<SysOauthClientDet
 
 	/**
 	 * 修改客户端信息
-	 * @param sysOauthClientDetails
+	 * @param sysOauthClientDetailsDTO
 	 * @return
 	 */
-	Boolean updateClientDetailsById(SysOauthClientDetails sysOauthClientDetails);
+	Boolean updateClientDetailsById(SysOauthClientDetailsDTO sysOauthClientDetailsDTO);
 
 	/**
-	 * 清除客户端缓存
+	 * 分页查询客户端信息
+	 * @param page
+	 * @param query
+	 * @return
 	 */
-	void clearClientCache();
+	Page queryPage(Page page, SysOauthClientDetails query);
+
+	/**
+	 * 添加客户端信息
+	 * @param clientDetailsDTO
+	 * @return
+	 */
+	Boolean saveClient(SysOauthClientDetailsDTO clientDetailsDTO);
 
 }

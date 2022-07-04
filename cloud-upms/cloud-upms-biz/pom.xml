@@ -29,10 +29,10 @@
             <artifactId>cloud-common-security</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--mybatis-->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <groupId>com.zhangzc</groupId>
+            <artifactId>cloud-common-data</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!--数据库-->
         <dependency>

@@ -3,10 +3,12 @@ package com.zhangzc.cloud.admin.controller;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhangzc.cloud.admin.service.SysTenantService;
+import com.zhangzc.cloud.common.core.constant.CacheConstants;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.security.annotation.Inner;
 import com.zhangzc.cloud.upms.api.entity.SysTenant;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/tenant")
-public class SysTenantController {
+public class TenantController {
 
 	private final SysTenantService sysTenantService;
 
@@ -46,6 +48,17 @@ public class SysTenantController {
 	@GetMapping("/{id}")
 	public R getById(@PathVariable("id") Integer id) {
 		return R.ok(sysTenantService.getById(id));
+	}
+
+	/**
+	 * 新增租户
+	 * @param sysTenant 租户
+	 * @return R
+	 */
+	@PostMapping
+	@PreAuthorize("@pms.hasPermission('admin_systenant_add')")
+	public R save(@RequestBody SysTenant sysTenant) {
+		return R.ok(sysTenantService.saveTenant(sysTenant));
 	}
 
 	/**

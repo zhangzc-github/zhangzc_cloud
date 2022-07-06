@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * TODO
+ * 字典管理
  * @version 1.0
  * @author Zhichao Zhang
  * @date 2022/3/3 12:09 下午

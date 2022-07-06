@@ -1,5 +1,6 @@
 package com.zhangzc.cloud.upms.api.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -23,7 +24,7 @@ public class SysTenant extends Model<SysTenant> {
 	/**
 	 * 租户id
 	 */
-	@TableId
+	@TableId(type = IdType.AUTO)
 	private Long id;
 
 	/**

@@ -13,4 +13,11 @@ public interface SysTenantService extends IService<SysTenant> {
 	 */
 	List<SysTenant> getNormalTenant();
 
+	/**
+	 * 保存租户
+	 * @param sysTenant
+	 * @return
+	 */
+	Boolean saveTenant(SysTenant sysTenant);
+
 }

@@ -23,14 +23,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class GatewayConfiguration {
 
     @Bean
-    public ValidateCodeGatewayFilter validateCodeGatewayFilter(GatewayConfigProperties configProperties,
-                                                               ObjectMapper objectMapper, RedisTemplate redisTemplate) {
-        return new ValidateCodeGatewayFilter(configProperties, objectMapper, redisTemplate);
+    public ValidateCodeGatewayFilter validateCodeGatewayFilter(ObjectMapper objectMapper, RedisTemplate redisTemplate) {
+        return new ValidateCodeGatewayFilter(objectMapper, redisTemplate);
     }
 
     @Bean
-    public PasswordDecoderFilter passwordDecoderFilter(GatewayConfigProperties configProperties) {
-        return new PasswordDecoderFilter(configProperties);
+    public PasswordDecoderFilter passwordDecoderFilter(GatewayConfigProperties configProperties, RedisTemplate redisTemplate) {
+        return new PasswordDecoderFilter(configProperties, redisTemplate);
     }
 
     @Bean

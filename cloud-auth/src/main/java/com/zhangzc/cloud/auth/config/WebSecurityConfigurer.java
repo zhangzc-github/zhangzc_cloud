@@ -34,7 +34,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         http
                 .formLogin().loginPage("/token/login").loginProcessingUrl("/token/form").failureHandler(authenticationFailureHandler())
                 .and()
-                .logout().logoutUrl("/token/logout").logoutSuccessHandler(logoutSuccessHandler())   //TODO: delete session
+                .logout().logoutSuccessHandler(logoutSuccessHandler())   //TODO: delete session
                 .and()
                 .authorizeRequests().antMatchers("/token/**", "/actuator/**").permitAll()
                 .anyRequest().authenticated()

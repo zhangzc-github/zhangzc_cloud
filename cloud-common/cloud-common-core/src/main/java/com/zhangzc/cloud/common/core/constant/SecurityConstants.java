@@ -86,4 +86,9 @@ public interface SecurityConstants {
      */
     String SMS_TOKEN_URL = "/mobile/token/sms";
 
+    /**
+     * 验证码长度
+     */
+    String CODE_SIZE = "4";
+
 }

@@ -53,7 +53,7 @@ public interface CommonConstants {
     /**
      * 租户ID
      */
-    Integer TENANT_ID_1 = 1;
+    Long TENANT_ID_1 = 1L;
 
     /**
      * 密码传输是否加密

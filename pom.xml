@@ -36,6 +36,7 @@
         <oss.version>1.0.3</oss.version>
         <sms.version>2.0.2</sms.version>
         <ttl.version>2.11.4</ttl.version>
+        <mybatis-plus.version>3.4.2</mybatis-plus.version>
     </properties>
 
     <dependencies>
@@ -117,6 +118,12 @@
                 <groupId>io.springboot.sms</groupId>
                 <artifactId>aliyun-sms-spring-boot-starter</artifactId>
                 <version>${sms.version}</version>
+            </dependency>
+            <!--mybatis plus extension,包含了mybatis plus core-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -42,7 +42,6 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequiredArgsConstructor
 public class ValidateCodeGatewayFilter extends AbstractGatewayFilterFactory<Object> {
-    private final GatewayConfigProperties configProperties;
     private final ObjectMapper objectMapper;
     private final RedisTemplate<String, Object> redisTemplate;
     @Override

@@ -1,6 +1,6 @@
 package com.zhangzc.cloud.admin.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zhangzc.cloud.common.data.mybatis.CloudBaseMapper;
 import com.zhangzc.cloud.upms.api.entity.SysRoleMenu;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2022/2/21 12:03 下午
  */
 @Mapper
-public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
+public interface SysRoleMenuMapper extends CloudBaseMapper<SysRoleMenu> {
 }

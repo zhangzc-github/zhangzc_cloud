@@ -31,4 +31,16 @@ public interface CacheConstants {
      */
     String CLIENT_FLAG = "client_config_flag";
 
+    /**
+     * 全局缓存，在缓存名称上加上该前缀表示该缓存不区分租户，比如:
+     * <p/>
+     * {@code @Cacheable(value = CacheConstants.GLOBALLY+CacheConstants.MENU_DETAILS, key = "#roleId  + '_menu'", unless = "#result == null")}
+     */
+    String GLOBALLY = "gl:";
+
+    /**
+     * 租户缓存 (不区分租户)
+     */
+    String TENANT_DETAILS = GLOBALLY + "tenant_details";
+
 }

@@ -1,5 +1,6 @@
 package com.zhangzc.cloud.upms.api.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -24,7 +25,7 @@ public class SysDict extends Model<SysDict> {
 	/**
 	 * 编号
 	 */
-	@TableId
+	@TableId(type = IdType.AUTO)
 	private Long id;
 
 	/**

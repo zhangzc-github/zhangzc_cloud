@@ -5,6 +5,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
+import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhangzc.cloud.admin.mapper.SysRoleMenuMapper;
@@ -172,13 +173,13 @@ public class SysTenantServiceImpl extends ServiceImpl<SysTenantMapper, SysTenant
 		for (Tree<Long> node : nodeList) {
 			SysMenu menu = new SysMenu();
 			menu.setParentId(parentId);
-			menu.setSortOrder(Convert.toInt(node.get("sortOrder")));
-			menu.setIcon(Convert.toStr(node.get("icon")));
-			menu.setPath(Convert.toStr(node.get("path")));
-			menu.setType(Convert.toStr(node.get("type")));
-			menu.setPermission(Convert.toStr(node.get("permission")));
-			menu.setKeepAlive(Convert.toStr(node.get("keepAlive")));
-			menu.setName(Convert.toStr(node.get("label")));
+			menu.setSortOrder(MapUtil.getInt(node, "sortOrder"));
+			menu.setIcon(MapUtil.getStr(node, "icon"));
+			menu.setPath(MapUtil.getStr(node, "path"));
+			menu.setType(MapUtil.getStr(node, "type"));
+			menu.setPermission(MapUtil.getStr(node, "permission"));
+			menu.setKeepAlive(MapUtil.getStr(node, "keepAlive"));
+			menu.setName(MapUtil.getStr(node, "label"));
 			menuService.save(menu);
 			if (!CollUtil.isEmpty(node.getChildren())) {
 				saveTenantMenu(node.getChildren(), menu.getMenuId());

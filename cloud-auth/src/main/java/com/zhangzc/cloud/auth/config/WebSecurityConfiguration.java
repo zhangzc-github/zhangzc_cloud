@@ -1,5 +1,7 @@
 package com.zhangzc.cloud.auth.config;
 
+import com.zhangzc.cloud.common.security.component.CloudDaoAuthenticationProvider;
+import com.zhangzc.cloud.common.security.grant.CustomAppAuthenticationProvider;
 import com.zhangzc.cloud.common.security.handler.FormAuthenticationFailureHandler;
 import com.zhangzc.cloud.common.security.handler.SsoLogoutSuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
  */
 @Configuration
 @RequiredArgsConstructor
-public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     @Override
     @SneakyThrows
@@ -34,7 +36,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         http
                 .formLogin().loginPage("/token/login").loginProcessingUrl("/token/form").failureHandler(authenticationFailureHandler())
                 .and()
-                .logout().logoutSuccessHandler(logoutSuccessHandler())   //TODO: delete session
+                .logout().logoutSuccessHandler(logoutSuccessHandler()).deleteCookies("JSESSIONID").invalidateHttpSession(true)
                 .and()
                 .authorizeRequests().antMatchers("/token/**", "/actuator/**").permitAll()
                 .anyRequest().authenticated()
@@ -48,17 +50,13 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-        /*
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("123456")).roles("ADMIN")
-                .and()
-                .withUser("user").password(passwordEncoder().encode("123456")).roles("USER");
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-         */
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        // 处理默认的密码模式认证
+        CloudDaoAuthenticationProvider daoAuthenticationProvider = new CloudDaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         auth.authenticationProvider(daoAuthenticationProvider);
+        // 处理自定义的认证模式
+        auth.authenticationProvider(new CustomAppAuthenticationProvider());
     }
 
     /**

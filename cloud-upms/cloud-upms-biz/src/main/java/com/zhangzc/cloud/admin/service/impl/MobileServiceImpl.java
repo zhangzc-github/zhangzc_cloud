@@ -29,7 +29,7 @@ public class MobileServiceImpl implements MobileService {
 
 	private final SysUserMapper userMapper;
 
-	private final SmsClient smsClient;
+//	private final SmsClient smsClient;
 
 	/**
 	 * 发送手机验证码 TODO: 调用短信网关发送验证码,测试返回前端
@@ -59,7 +59,7 @@ public class MobileServiceImpl implements MobileService {
 		redisTemplate.opsForValue().set(
 				CacheConstants.DEFAULT_CODE_KEY + LoginTypeEnum.SMS.getType() + StringPool.AT + mobile, code,
 				SecurityConstants.CODE_TIME, TimeUnit.SECONDS);
-		smsClient.sendCode(code, mobile);
+//		smsClient.sendCode(code, mobile);
 		// 返回给前端，方便测试
 		return R.ok(Boolean.TRUE, code);
 	}

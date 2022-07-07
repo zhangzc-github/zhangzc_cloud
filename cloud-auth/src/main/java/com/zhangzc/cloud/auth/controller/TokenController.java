@@ -9,6 +9,7 @@ import com.zhangzc.cloud.common.core.constant.SecurityConstants;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.core.util.SpringContextHolder;
 import com.zhangzc.cloud.common.security.annotation.Inner;
+import com.zhangzc.cloud.common.security.util.SecurityUtils;
 import com.zhangzc.cloud.upms.api.entity.SysTenant;
 import com.zhangzc.cloud.upms.api.feign.RemoteTenantService;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +19,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.event.LogoutSuccessEvent;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
+import org.springframework.security.oauth2.provider.AuthorizationRequest;
+import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,6 +52,8 @@ public class TokenController {
     private final CacheManager cacheManager;
 
     private final RemoteTenantService tenantService;
+
+    private final ClientDetailsService clientDetailsService;
 
     /**
      * 认证页面
@@ -76,7 +84,29 @@ public class TokenController {
         return removeToken(tokenValue);
     }
 
-    //TODO: confirm_access
+    /**
+     * 确认授权页面
+     * @param request
+     * @param session
+     * @param modelAndView
+     * @return
+     */
+    @GetMapping("/confirm_access")
+    public ModelAndView confirm(HttpServletRequest request, HttpSession session, ModelAndView modelAndView) {
+        Map<String, Object> scopeList = (Map<String, Object>) request.getAttribute("scopes");
+        modelAndView.addObject("scopeList", scopeList.keySet());
+
+        Object auth = session.getAttribute("authorizationRequest");
+        if (auth != null) {
+            AuthorizationRequest authorizationRequest = (AuthorizationRequest) auth;
+            ClientDetails clientDetails = clientDetailsService.loadClientByClientId(authorizationRequest.getClientId());
+            modelAndView.addObject("app", clientDetails.getAdditionalInformation());
+            modelAndView.addObject("user", SecurityUtils.getUser());
+        }
+
+        modelAndView.setViewName("ftl/confirm");
+        return modelAndView;
+    }
 
     /**
      * 令牌管理调用

@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.zhangzc</groupId>
     <artifactId>zhangzc_cloud</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>2.0</version>
     <name>zhangzc_cloud</name>
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
@@ -69,8 +69,17 @@
             <version>${hutool.version}</version>
         </dependency>
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
+            <!--公共版本定义-->
+            <dependency>
+                <groupId>com.zhangzc</groupId>
+                <artifactId>cloud-common-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <!-- spring boot 依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

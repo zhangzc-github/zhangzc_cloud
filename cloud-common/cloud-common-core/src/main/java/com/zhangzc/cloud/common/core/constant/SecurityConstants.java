@@ -91,4 +91,9 @@ public interface SecurityConstants {
      */
     String CODE_SIZE = "4";
 
+    /**
+     * 手机号登录
+     */
+    String APP = "app";
+
 }

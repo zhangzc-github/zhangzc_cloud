@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/param")
-public class SysPublicParamController {
+public class PublicParamController {
 
 	private final SysPublicParamService sysPublicParamService;
 

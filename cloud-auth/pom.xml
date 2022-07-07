@@ -5,38 +5,34 @@
     <parent>
         <groupId>com.zhangzc</groupId>
         <artifactId>zhangzc_cloud</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>2.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <artifactId>cloud-auth</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>cloud-auth</name>
-    <description>Demo project for Spring Boot</description>
+    <description>认证授权中心，基于 spring security oAuth2</description>
     <packaging>jar</packaging>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+
     <dependencies>
         <!--安全模块-->
         <dependency>
             <groupId>com.zhangzc</groupId>
             <artifactId>cloud-common-security</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zhangzc</groupId>
-            <artifactId>cloud-common-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.zhangzc</groupId>
             <artifactId>cloud-common-data</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhangzc</groupId>
+            <artifactId>cloud-common-log</artifactId>
         </dependency>
 
+        <!--undertow容器-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
         <!--freemarker-->
         <dependency>

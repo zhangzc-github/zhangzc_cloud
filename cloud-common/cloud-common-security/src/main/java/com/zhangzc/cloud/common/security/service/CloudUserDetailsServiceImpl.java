@@ -29,7 +29,7 @@ import java.util.*;
  */
 @RequiredArgsConstructor
 @Primary
-public class CloudUserDetailsServiceImpl implements UserDetailsService {
+public class CloudUserDetailsServiceImpl implements CloudUserDetailsService {
     private final RemoteUserService remoteUserService;
     private final CacheManager cacheManager;
     @Override
@@ -46,24 +46,8 @@ public class CloudUserDetailsServiceImpl implements UserDetailsService {
         return userDetails;
     }
 
-    private UserDetails getUserDetails(R<UserInfo> result) {
-        if (result == null || result.getData() == null) {
-            throw new UsernameNotFoundException("用户不存在");
-        }
-        UserInfo info = result.getData();
-        Set<String> dbAuthsSet = new HashSet<>();
-
-        if (ArrayUtil.isNotEmpty(info.getRoles())) {
-            // 获取角色
-            Arrays.stream(info.getRoles()).forEach(role -> dbAuthsSet.add(SecurityConstants.ROLE + role));
-            // 获取权限
-            dbAuthsSet.addAll(Arrays.asList(info.getPermissions()));
-        }
-        Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
-
-        SysUser user = info.getSysUser();
-        return new CloudUser(user.getUserId(), user.getDeptId(), user.getUsername(), SecurityConstants.BCRYPT + user.getPassword(),
-                user.getPhone(), true, true, true, StrUtil.equals(user.getLockFlag(),
-                CommonConstants.STATUS_NORMAL), authorities);
+    @Override
+    public int getOrder() {
+        return Integer.MIN_VALUE;
     }
 }

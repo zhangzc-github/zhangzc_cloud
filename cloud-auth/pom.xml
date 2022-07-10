@@ -28,6 +28,11 @@
             <groupId>com.zhangzc</groupId>
             <artifactId>cloud-common-log</artifactId>
         </dependency>
+        <!--路由控制-->
+        <dependency>
+            <groupId>com.zhangzc</groupId>
+            <artifactId>cloud-common-gray</artifactId>
+        </dependency>
 
         <!--undertow容器-->
         <dependency>

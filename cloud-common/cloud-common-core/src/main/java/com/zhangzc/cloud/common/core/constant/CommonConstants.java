@@ -64,4 +64,14 @@ public interface CommonConstants {
      * 验证码开关
      */
     String CAPTCHA_FLAG = "captcha_flag";
+
+    /**
+     * 编码
+     */
+    String UTF8 = "UTF-8";
+
+    /**
+     * header 中版本信息
+     */
+    String VERSION = "VERSION";
 }

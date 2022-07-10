@@ -40,6 +40,16 @@
                 <artifactId>cloud-upms-api</artifactId>
                 <version>${cloud.common.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.zhangzc</groupId>
+                <artifactId>cloud-common-gateway</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zhangzc</groupId>
+                <artifactId>cloud-common-gray</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

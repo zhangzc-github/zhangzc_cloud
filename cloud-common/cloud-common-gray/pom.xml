@@ -9,19 +9,26 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-common-data</artifactId>
-    <description>数据操作相关</description>
-    <packaging>jar</packaging>
+    <artifactId>cloud-common-gray</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.zhangzc</groupId>
-            <artifactId>cloud-common-security</artifactId>
+            <artifactId>cloud-common-core</artifactId>
         </dependency>
-        <!--mybatis-->
+
+        <!-- LB 扩展 -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
         </dependency>
     </dependencies>
 

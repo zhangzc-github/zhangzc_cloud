@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
- * TODO
+ * 日志自动配置
  * @version 1.0
  * @author Zhichao Zhang
  * @date 2022/3/7 12:13 下午

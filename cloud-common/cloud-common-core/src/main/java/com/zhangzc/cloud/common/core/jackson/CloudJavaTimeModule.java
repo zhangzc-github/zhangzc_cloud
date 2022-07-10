@@ -1,4 +1,4 @@
-package com.zhangzc.cloud.common.core.config;
+package com.zhangzc.cloud.common.core.jackson;
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.databind.module.SimpleModule;

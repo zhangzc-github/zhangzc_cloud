@@ -5,7 +5,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhangzc.cloud.admin.mapper.SysUserMapper;
-import com.zhangzc.cloud.admin.service.MobileService;
+import com.zhangzc.cloud.admin.service.AppService;
 import com.zhangzc.cloud.common.core.constant.CacheConstants;
 import com.zhangzc.cloud.common.core.constant.SecurityConstants;
 import com.zhangzc.cloud.common.core.constant.enums.LoginTypeEnum;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class MobileServiceImpl implements MobileService {
+public class MobileServiceImpl implements AppService {
 
 	private final RedisTemplate redisTemplate;
 

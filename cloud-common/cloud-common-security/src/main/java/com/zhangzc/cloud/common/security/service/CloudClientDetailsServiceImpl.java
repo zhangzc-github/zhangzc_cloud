@@ -6,6 +6,13 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import javax.sql.DataSource;
 
+/**
+ * ClientDetailsService实现类
+ * TODO: 多租户处理
+ * @version 1.0
+ * @author Zhichao Zhang
+ * @date 2022/7/10 4:11 下午
+ */
 public class CloudClientDetailsServiceImpl extends JdbcClientDetailsService {
     public CloudClientDetailsServiceImpl(DataSource dataSource) {
         super(dataSource);

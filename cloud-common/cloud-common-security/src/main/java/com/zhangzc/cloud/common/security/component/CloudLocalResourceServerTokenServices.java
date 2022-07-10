@@ -1,7 +1,6 @@
 package com.zhangzc.cloud.common.security.component;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.zhangzc.cloud.common.security.service.CloudClientDetailsServiceImpl;
 import com.zhangzc.cloud.common.security.service.CloudUser;
 import com.zhangzc.cloud.common.security.service.CloudUserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;

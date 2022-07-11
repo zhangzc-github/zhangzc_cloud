@@ -5,6 +5,7 @@ import com.zhangzc.cloud.common.security.component.CloudWebResponseExceptionTran
 import com.zhangzc.cloud.common.security.grant.ResourceOwnerCustomAppTokenGranter;
 import com.zhangzc.cloud.common.security.service.CloudClientDetailsServiceImpl;
 import com.zhangzc.cloud.common.security.service.CloudUser;
+import com.zhangzc.cloud.upms.api.feign.RemoteClientDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -39,9 +40,9 @@ import java.util.Map;
 @EnableAuthorizationServer
 @RequiredArgsConstructor
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
-    private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
     private final TokenStore tokenStore;
+    private final RemoteClientDetailsService remoteClientDetailsService;
 
     @Override
     @SneakyThrows
@@ -113,10 +114,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
      */
     @Bean
     public ClientDetailsService cloudClientDetailsService() {
-        CloudClientDetailsServiceImpl clientDetailsService = new CloudClientDetailsServiceImpl(dataSource);
-        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
-        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
-        return clientDetailsService;
+        return new CloudClientDetailsServiceImpl(remoteClientDetailsService);
     }
 
 }

@@ -37,6 +37,7 @@
         <sms.version>2.0.2</sms.version>
         <ttl.version>2.11.4</ttl.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <swagger.fox.version>3.0.0</swagger.fox.version>
     </properties>
 
     <dependencies>

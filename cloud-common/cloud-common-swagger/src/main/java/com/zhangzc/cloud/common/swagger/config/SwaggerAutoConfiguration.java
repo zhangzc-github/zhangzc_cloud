@@ -1,8 +1,12 @@
 package com.zhangzc.cloud.common.swagger.config;
 
 import com.zhangzc.cloud.common.swagger.support.SwaggerProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -13,13 +17,18 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-@EnableConfigurationProperties(SwaggerProperties.class)
+@EnableSwagger2
+@ConditionalOnProperty(name = "swagger.enabled", matchIfMissing = true)
 public class SwaggerAutoConfiguration {
 
     /**
@@ -67,7 +76,7 @@ public class SwaggerAutoConfiguration {
      * 配置默认的全局鉴权策略的开关，通过正则表达式进行匹配；默认匹配所有URL
      * @return
      */
-    private SecurityContext securityContext(SwaggerProperties swaggerProperties) {
+    private static SecurityContext securityContext(SwaggerProperties swaggerProperties) {
         return SecurityContext.builder().securityReferences(defaultAuth(swaggerProperties)).build();
     }
 
@@ -75,7 +84,7 @@ public class SwaggerAutoConfiguration {
      * 默认的全局鉴权策略
      * @return
      */
-    private List<SecurityReference> defaultAuth(SwaggerProperties swaggerProperties) {
+    private static List<SecurityReference> defaultAuth(SwaggerProperties swaggerProperties) {
         ArrayList<AuthorizationScope> authorizationScopeList = new ArrayList<>();
         swaggerProperties.getAuthorization().getAuthorizationScopeList()
                 .forEach(authorizationScope -> authorizationScopeList.add(
@@ -86,7 +95,7 @@ public class SwaggerAutoConfiguration {
                         .scopes(authorizationScopeList.toArray(authorizationScopes)).build());
     }
 
-    private OAuth securitySchema(SwaggerProperties swaggerProperties) {
+    private static OAuth securitySchema(SwaggerProperties swaggerProperties) {
         ArrayList<AuthorizationScope> authorizationScopeList = new ArrayList<>();
         swaggerProperties.getAuthorization().getAuthorizationScopeList()
                 .forEach(authorizationScope -> authorizationScopeList.add(
@@ -97,7 +106,7 @@ public class SwaggerAutoConfiguration {
         return new OAuth(swaggerProperties.getAuthorization().getName(), authorizationScopeList, grantTypes);
     }
 
-    private ApiInfo apiInfo(SwaggerProperties swaggerProperties) {
+    private static ApiInfo apiInfo(SwaggerProperties swaggerProperties) {
         return new ApiInfoBuilder().title(swaggerProperties.getTitle()).description(swaggerProperties.getDescription())
                 .license(swaggerProperties.getLicense()).licenseUrl(swaggerProperties.getLicenseUrl())
                 .termsOfServiceUrl(swaggerProperties.getTermsOfServiceUrl())
@@ -105,4 +114,39 @@ public class SwaggerAutoConfiguration {
                         swaggerProperties.getContact().getEmail()))
                 .version(swaggerProperties.getVersion()).build();
     }
+
+    @Bean
+    public static BeanPostProcessor springfoxHandlerProviderBeanPostProcessor() {
+        return new BeanPostProcessor() {
+
+            @Override
+            public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+                if (bean instanceof WebMvcRequestHandlerProvider) {
+                    customizeSpringfoxHandlerMappings(getHandlerMappings(bean));
+                }
+                return bean;
+            }
+
+            private <T extends RequestMappingInfoHandlerMapping> void customizeSpringfoxHandlerMappings(
+                    List<T> mappings) {
+                List<T> copy = mappings.stream().filter(mapping -> mapping.getPatternParser() == null)
+                        .collect(Collectors.toList());
+                mappings.clear();
+                mappings.addAll(copy);
+            }
+
+            @SuppressWarnings("unchecked")
+            private List<RequestMappingInfoHandlerMapping> getHandlerMappings(Object bean) {
+                try {
+                    Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
+                    field.setAccessible(true);
+                    return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
+                }
+                catch (IllegalArgumentException | IllegalAccessException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        };
+    }
+
 }

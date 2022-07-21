@@ -36,6 +36,10 @@
             <groupId>com.zhangzc</groupId>
             <artifactId>cloud-common-gray</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zhangzc</groupId>
+            <artifactId>cloud-common-swagger</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

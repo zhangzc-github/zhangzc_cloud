@@ -2,7 +2,6 @@ package com.zhangzc.cloud.admin.config;
 
 import com.zhangzc.cloud.common.security.component.CloudResourceServerAutoConfiguration;
 import com.zhangzc.cloud.common.security.component.PermitAllUrlProperties;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

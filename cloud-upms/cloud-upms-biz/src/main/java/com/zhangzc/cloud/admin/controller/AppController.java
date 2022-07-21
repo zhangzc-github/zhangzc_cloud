@@ -7,6 +7,7 @@ import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.security.annotation.Inner;
 import com.zhangzc.cloud.upms.api.dto.UserInfo;
 import com.zhangzc.cloud.upms.api.entity.SysUser;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/app")
+@Api(value = "app", tags = "手机管理模块")
 public class AppController {
 
 	private final AppService appService;

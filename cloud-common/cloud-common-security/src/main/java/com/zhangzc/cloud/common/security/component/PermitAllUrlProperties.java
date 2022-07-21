@@ -48,7 +48,7 @@ public class PermitAllUrlProperties implements InitializingBean, ApplicationCont
 
             //获取方法上的注解， 替换 path variable 为 *
             Inner method = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), Inner.class);
-            Optional.ofNullable(method).ifPresent(inner -> info.getPathPatternsCondition().getPatternValues()
+            Optional.ofNullable(method).ifPresent(inner -> info.getPatternsCondition().getPatterns()
                     .forEach(url -> urls.add(ReUtil.replaceAll(url, PATTERN, StringPool.ASTERISK))));
             //获取类上的注解， 替换 path variable 为 *
 //            Inner controller = AnnotationUtils.findAnnotation(handlerMethod.getBeanType(), Inner.class);

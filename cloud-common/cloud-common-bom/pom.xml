@@ -50,6 +50,11 @@
                 <artifactId>cloud-common-gray</artifactId>
                 <version>${cloud.common.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.zhangzc</groupId>
+                <artifactId>cloud-common-swagger</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

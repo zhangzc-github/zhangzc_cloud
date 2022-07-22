@@ -8,7 +8,10 @@ import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.security.annotation.Inner;
 import com.zhangzc.cloud.upms.api.dto.SysLogDTO;
 import com.zhangzc.cloud.upms.api.entity.SysLog;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -23,6 +26,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/log")
+@Tag(name = "日志管理")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class LogController {
 
 	private final SysLogService sysLogService;

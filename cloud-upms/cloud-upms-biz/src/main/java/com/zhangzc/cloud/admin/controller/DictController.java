@@ -9,9 +9,12 @@ import com.zhangzc.cloud.common.core.constant.CacheConstants;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.upms.api.entity.SysDict;
 import com.zhangzc.cloud.upms.api.entity.SysDictItem;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/dict")
+@Tag(name = "字典管理")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class DictController {
 
 	private final SysDictItemService sysDictItemService;

@@ -1,6 +1,6 @@
 package com.zhangzc.cloud.admin;
 
-import com.zhangzc.cloud.common.swagger.annotation.EnableCloudSwagger2;
+import com.zhangac.cloud.common.doc.annotation.EnableCloudSpringDoc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableResourceServer
 @EnableFeignClients(basePackages = "com.zhangzc.cloud")
 @EnableDiscoveryClient
-@EnableCloudSwagger2
+@EnableCloudSpringDoc
 public class CloudAdminApplication {
 
     public static void main(String[] args) {

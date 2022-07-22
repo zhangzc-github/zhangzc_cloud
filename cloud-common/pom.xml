@@ -21,7 +21,7 @@
         <module>cloud-common-bom</module>
         <module>cloud-common-gateway</module>
         <module>cloud-common-gray</module>
-        <module>cloud-common-swagger</module>
+        <module>cloud-common-doc</module>
     </modules>
 
 

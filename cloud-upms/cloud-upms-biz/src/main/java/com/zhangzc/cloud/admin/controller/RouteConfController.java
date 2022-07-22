@@ -3,13 +3,18 @@ package com.zhangzc.cloud.admin.controller;
 import cn.hutool.json.JSONArray;
 import com.zhangzc.cloud.admin.service.SysRouteConfService;
 import com.zhangzc.cloud.common.core.util.R;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/route")
+@Tag(name = "动态路由配置")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class RouteConfController {
 
 	private final SysRouteConfService sysRouteConfService;

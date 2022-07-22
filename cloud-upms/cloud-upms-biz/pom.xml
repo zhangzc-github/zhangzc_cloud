@@ -38,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>com.zhangzc</groupId>
-            <artifactId>cloud-common-swagger</artifactId>
+            <artifactId>cloud-common-doc</artifactId>
         </dependency>
 
         <dependency>

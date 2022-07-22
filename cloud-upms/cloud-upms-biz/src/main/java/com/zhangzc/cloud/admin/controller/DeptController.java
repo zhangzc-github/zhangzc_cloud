@@ -6,7 +6,10 @@ import com.zhangzc.cloud.admin.service.SysDeptService;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.security.annotation.Inner;
 import com.zhangzc.cloud.upms.api.entity.SysDept;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/dept")
+@Tag(name = "部门管理")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class DeptController {
 
 	private final SysDeptService sysDeptService;

@@ -8,9 +8,12 @@ import com.zhangzc.cloud.admin.service.SysFileService;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.security.annotation.Inner;
 import com.zhangzc.cloud.upms.api.entity.SysFile;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sys-file")
+@Tag(name = "文件管理")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class FileController {
 
 	private final SysFileService sysFileService;

@@ -52,7 +52,7 @@
             </dependency>
             <dependency>
                 <groupId>com.zhangzc</groupId>
-                <artifactId>cloud-common-swagger</artifactId>
+                <artifactId>cloud-common-doc</artifactId>
                 <version>${cloud.common.version}</version>
             </dependency>
         </dependencies>

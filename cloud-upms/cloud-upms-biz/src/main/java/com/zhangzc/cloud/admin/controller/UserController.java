@@ -16,7 +16,10 @@ import com.zhangzc.cloud.upms.api.entity.SysUser;
 import com.zhangzc.cloud.upms.api.vo.UserExcelVO;
 import com.zhangzc.cloud.upms.api.vo.UserInfoVO;
 import com.zhangzc.cloud.upms.api.vo.UserVO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +37,8 @@ import java.util.Set;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@Tag(name = "用户管理")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class UserController {
     private final SysUserService sysUserService;
 

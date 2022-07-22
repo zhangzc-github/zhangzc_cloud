@@ -7,8 +7,11 @@ import com.zhangzc.cloud.common.core.constant.CacheConstants;
 import com.zhangzc.cloud.common.core.util.R;
 import com.zhangzc.cloud.common.security.annotation.Inner;
 import com.zhangzc.cloud.upms.api.entity.SysTenant;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +28,8 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/tenant")
+@Tag(name = "租户管理")
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class TenantController {
 
 	private final SysTenantService sysTenantService;

@@ -8,6 +8,9 @@ spring:
     nacos:
       discovery:
         server-addr: ${NACOS_HOST:pig-register}:${NACOS_PORT:8848}
+#        设置实例元数据信息，供灰度发布使用
+#        metadata:
+#          vesion: 1
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
